@@ -1,3 +1,5 @@
+/* project */
+
 .project {
   margin: 0;
   padding: 110px 70px;
@@ -14,6 +16,8 @@
     padding: 70px 18px;
   }
 }
+
+/* project__title */
 
 .project__title {
   margin: 0;
@@ -33,6 +37,8 @@
     margin-bottom: 60px;
   }
 }
+
+/* project__desc */
 
 .project__desc {
   margin: 0 0 110px;
@@ -57,8 +63,7 @@
   }
 }
 
-.project__stages {
-}
+/* project__stages-title */
 
 .project__stages-title {
   margin: 0;
@@ -81,6 +86,8 @@
   }
 }
 
+/* project__stages-subtitle */
+
 .project__stages-subtitle {
   margin: 0;
   font-size: 14px;
@@ -101,6 +108,8 @@
   }
 }
 
+/* project__diagram */
+
 .project__diagram {
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -119,11 +128,22 @@
   }
 }
 
-.project__backend {
-  
+/* project__diagram-part */
+
+.project__diagram-part {
+  font-size: 14px;
+  font-weight: 400;
 }
 
-.project__weeks-back {
+@media screen and (max-width: 450px) {
+  .project__diagram-part {
+    font-size: 11px;
+  }
+}
+
+/* project__part-back */
+
+.project__part-back {
   margin: 0;
   height: 36px;
   background-color: #3456F3;
@@ -131,10 +151,9 @@
   line-height: 36px;
 }
 
-.project__frontend {
-}
+/* project__part-front */
 
-.project__weeks-front {
+.project__part-front {
   margin: 0;
   height: 36px;
   background-color: #F2F2F2;
@@ -142,7 +161,9 @@
   line-height: 36px;
 }
 
-.project__weeks-subtitle {
+/* project__part-subtitle */
+
+.project__part-subtitle {
   margin: 0;
   margin-top: 14px;
   font-size: 14px;
@@ -152,7 +173,7 @@
 }
 
 @media screen and (max-width: 770px) {
-  .project__weeks-subtitle {
+  .project__part-subtitle {
     font-weight: 400;
   }
 }
