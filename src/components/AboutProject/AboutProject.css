@@ -17,9 +17,9 @@
   }
 }
 
-/* project__title */
+/* project__nav-title */
 
-.project__title {
+.project__nav-title{
   margin: 0;
   font-size: 22px;
   letter-spacing: -4%;
@@ -31,7 +31,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  .project__title {
+  .project__nav-title {
     font-size: 18px;
     padding-bottom: 28px;
     margin-bottom: 60px;
