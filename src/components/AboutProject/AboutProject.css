@@ -20,7 +20,7 @@
 /* project__desc */
 
 .project__desc {
-  margin: 0 0 110px;
+  margin: 70px 0 110px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 40px;
@@ -38,6 +38,7 @@
     grid-template-columns: 1fr;
     column-gap: 0;
     row-gap: 56px;
+    margin-top: 60px;
     margin-bottom: 60px;
   }
 }
