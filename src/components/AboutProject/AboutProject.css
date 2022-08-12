@@ -48,7 +48,6 @@
   margin: 0;
   font-size: 20px;
   letter-spacing: -4%;
-  font-weight: 400;
   margin-bottom: 26px;
 }
 
@@ -111,7 +110,6 @@
 
 .project__diagram-part {
   font-size: 14px;
-  font-weight: 400;
 }
 
 @media screen and (max-width: 450px) {
