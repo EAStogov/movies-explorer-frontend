@@ -5,6 +5,8 @@
   max-width: 1280px;
   margin: 0 auto;
   font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  color: #000;
 }
 
 .page__nav-title {
