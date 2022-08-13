@@ -26,6 +26,7 @@
 @media screen and (max-width: 620px) {
   .me__container {
     flex-direction: column;
+    margin-bottom: 69px;
   }
 }
 
