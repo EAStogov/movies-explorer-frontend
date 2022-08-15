@@ -3,7 +3,7 @@ import almanac from "../images/almanac.png";
 import banksy from "../images/banksy.png";
 import baskiya from "../images/baskiya.png";
 import running from "../images/running.png";
-// import bookSellers from "../images/book-sellers.png";
+import bookSellers from "../images/book-sellers.png";
 import germany from "../images/germany.png";
 
 export const moviesList = [
@@ -45,7 +45,7 @@ export const moviesList = [
   {
     name: 'Книготорговцы',
     duration: '1ч 42м',
-    image: germany,
+    image: bookSellers,
     id: 6,
     saved: false
   },
