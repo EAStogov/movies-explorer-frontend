@@ -1,0 +1,48 @@
+.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 630px) {
+  .filter {
+    position: absolute;
+    top: 105px;
+  }
+}
+
+.filter__checkbox {
+  width: 34px;
+  height: 14px;
+  border-radius: 20px;
+  background-color: #EBEBEB;
+  border: none;
+  padding: 2px;
+  transition: background-color .3s;
+  position: relative;
+  margin-right: 15px;
+}
+
+.filter__checkbox_active {
+  background-color: #2BE080;
+}
+
+.filter__checkbox-circle {
+  background-color: white;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: left .3s;
+}
+
+.filter__checkbox-circle_active {
+  left: 22px;
+}
+
+.filter__title {
+  font-size: 13px;
+  line-height: 18px;
+}
