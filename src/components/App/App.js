@@ -9,6 +9,7 @@ import { moviesList, savedMoviesList } from "../../constants/moviesList.js";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import NotFound from "../NotFound/NotFound";
 
 function App() {
   return (
@@ -46,6 +47,11 @@ function App() {
           element={
             <Login />
           } />
+          <Route
+            path="*"
+            element={
+              <NotFound />
+            } />
       </Routes>
       <Footer />
     </div>
