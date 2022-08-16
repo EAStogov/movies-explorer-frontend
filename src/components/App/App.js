@@ -7,6 +7,8 @@ import Footer from '../Footer/Footer';
 import Movies from "../Movies/Movies";
 import { moviesList, savedMoviesList } from "../../constants/moviesList.js";
 import Profile from "../Profile/Profile";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 function App() {
   return (
@@ -33,6 +35,16 @@ function App() {
           path="/profile"
           element={
             <Profile />
+          } />
+        <Route
+          path="/signup"
+          element={
+            <Register />
+          } />
+        <Route
+          path="/signin"
+          element={
+            <Login />
           } />
       </Routes>
       <Footer />
