@@ -10,11 +10,22 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
+import { useState } from "react";
 
 function App() {
+  const [isHeaderShown, setIsHeaderShown] = useState(true);
+  function toggleHeader(value) {
+    setIsHeaderShown(value);
+  }
+
+  const [isFooterShown, setIsFooterShown] = useState(true);
+  function toggleFooter(value) {
+    setIsFooterShown(value);
+  }
+
   return (
     <div className="page">
-      <Header />
+      <Header isHeaderShown={isHeaderShown}/>
       <Routes>
         <Route
           path="/"
@@ -35,25 +46,25 @@ function App() {
         <Route
           path="/profile"
           element={
-            <Profile />
+            <Profile toggleFooter={toggleFooter} />
           } />
         <Route
           path="/signup"
           element={
-            <Register />
+            <Register toggleFooter={toggleFooter} />
           } />
         <Route
           path="/signin"
           element={
-            <Login />
+            <Login toggleFooter={toggleFooter} />
           } />
           <Route
             path="*"
             element={
-              <NotFound />
+              <NotFound toggleHeader={toggleHeader} toggleFooter={toggleFooter} />
             } />
       </Routes>
-      <Footer />
+      <Footer isFooterShown={isFooterShown} />
     </div>
   );
 }

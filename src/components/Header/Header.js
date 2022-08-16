@@ -1,9 +1,9 @@
 import headerLogo from "../../images/logo.svg";
 import "./Header.css";
 
-function Header() {
+function Header({ isHeaderShown }) {
   return(
-    <section className="header">
+    <section className={`header ${!isHeaderShown && 'header__hidden'}`}>
       <button className="header__button">
         <img className="header__logo" src={headerLogo} alt="Логос" />
       </button>

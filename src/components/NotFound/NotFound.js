@@ -1,8 +1,13 @@
 import "./NotFound.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-function NotFound() {
+function NotFound({ toggleHeader, toggleFooter }) {
   const navigate = useNavigate();
+  useEffect(() => {
+    toggleHeader(false);
+    toggleFooter(false)
+  }, []);
 
   function handleButtonClick() {
     return navigate(-1);

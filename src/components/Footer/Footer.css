@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+.footer__hidden {
+  display: none;
+}
+
 @media screen and (max-width: 770px) {
   .footer {
     padding-left: 30px;

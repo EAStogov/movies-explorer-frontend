@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Register.css";
 
-function Register() {
+function Register({ toggleFooter }) {
   const [name, setName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@yandex.ru');
   const [password, setPassword] = useState('123456789');
+
+  useEffect(() => {
+    toggleFooter(false);
+  }, []);
 
   function handleChangeName(e) {
     setName(e.target.value);

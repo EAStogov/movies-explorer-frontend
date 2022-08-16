@@ -1,9 +1,9 @@
 import Navigation from "../Navigation/Navigation";
 import "./Footer.css";
 
-function Footer() {
+function Footer({ isFooterShown }) {
   return(
-    <section className="footer">
+    <section className={`footer ${!isFooterShown && 'footer__hidden'}`}>
       <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
       <div className="footer__container">
         <p className="footer__year">© 2022</p>

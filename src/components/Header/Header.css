@@ -5,6 +5,10 @@
   padding: 20px 70px;
 }
 
+.header__hidden {
+  display: none;
+}
+
 .header__logo {
   width: 38px;
   margin-right: auto;

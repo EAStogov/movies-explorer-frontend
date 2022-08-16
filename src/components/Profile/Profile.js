@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Profile.css";
 
-function Profile() {
+function Profile({ toggleFooter }) {
   const [name, setName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@yandex.ru');
+
+  useEffect(() => {
+    toggleFooter(false);
+  }, []);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -16,7 +20,7 @@ function Profile() {
 
   return(
     <section className="profile">
-      <Form isForEdit={true} navLink="/" title="Привет, Виталий!" submitText="Редактировать" navLinkButtonText="Выйти из аккаунта">
+      <Form isForEdit={true} title="Привет, Виталий!" submitText="Редактировать" navLinkButtonText="Выйти из аккаунта">
         <div className="form__input-container form__input-container_type_edit">
           <p className="form__input-label form__input-label_type_edit">Имя</p>
           <input className="form__input form__input_type_edit" value={name} onChange={handleChangeName}/>
