@@ -47,66 +47,68 @@ function App() {
         isHeaderMain={isHeaderMain}
         route={route}
       />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Main
-              toggleHeaderNavigation={toggleHeaderNavigation}
-              toggleHeaderAuth={toggleHeaderAuth}
-              toggleFooter={toggleFooter}
-              onChangeRoute={handleNavigation}
-              route="/"
-            />
-          }
-        ></Route>
-        <Route
-          path="/movies"
-          element={
-            <Movies moviesList={moviesList} onChangeRoute={handleNavigation} route="/movies" />
-          }
-        />
-        <Route
-          path="/saved-movies"
-          element={
-            <Movies
-              moviesList={savedMoviesList}
-              onChangeRoute={handleNavigation}
-              route="/saved-movies"
-            />
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              toggleFooter={toggleFooter}
-              onChangeRoute={handleNavigation}
-              route="/profile"
-            />
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <Register
-              toggleFooter={toggleFooter}
-              onChangeRoute={handleNavigation}
-              route="/signup"
-            />
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" />
-          }
-        />
-        <Route
-          path="*"
-          element={<NotFound toggleHeader={toggleHeader} toggleFooter={toggleFooter} />}
-        />
-      </Routes>
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                toggleHeaderNavigation={toggleHeaderNavigation}
+                toggleHeaderAuth={toggleHeaderAuth}
+                toggleFooter={toggleFooter}
+                onChangeRoute={handleNavigation}
+                route="/"
+              />
+            }
+          ></Route>
+          <Route
+            path="/movies"
+            element={
+              <Movies moviesList={moviesList} onChangeRoute={handleNavigation} route="/movies" />
+            }
+          />
+          <Route
+            path="/saved-movies"
+            element={
+              <Movies
+                moviesList={savedMoviesList}
+                onChangeRoute={handleNavigation}
+                route="/saved-movies"
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                toggleFooter={toggleFooter}
+                onChangeRoute={handleNavigation}
+                route="/profile"
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Register
+                toggleFooter={toggleFooter}
+                onChangeRoute={handleNavigation}
+                route="/signup"
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" />
+            }
+          />
+          <Route
+            path="*"
+            element={<NotFound toggleHeader={toggleHeader} toggleFooter={toggleFooter} />}
+          />
+        </Routes>
+      </main>
       <Footer isFooterShown={isFooterShown} />
     </div>
   );
