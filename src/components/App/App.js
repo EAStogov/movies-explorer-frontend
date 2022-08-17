@@ -14,39 +14,50 @@ import { useState } from "react";
 
 function App() {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
+  const [isFooterShown, setIsFooterShown] = useState(true);
+  const [isHeaderAuth, setIsHeaderAuth] = useState(false);
+  const [route, setRoute] = useState("/")
+
   function toggleHeader(value) {
     setIsHeaderShown(value);
   }
 
-  const [isFooterShown, setIsFooterShown] = useState(true);
   function toggleFooter(value) {
     setIsFooterShown(value);
   }
 
+  function toggleHeaderNavigation(value) {
+    setIsHeaderAuth(value);
+  }
+
+  function handleNavigation(value) {
+    setRoute(value)
+  }
+
   return (
     <div className="page">
-      <Header isHeaderShown={isHeaderShown}/>
+      <Header isHeaderShown={isHeaderShown} isHeaderAuth={isHeaderAuth} route={route} />
       <Routes>
         <Route
           path="/"
           element={
-            <Main />
+            <Main toggleHeaderNavigation={toggleHeaderNavigation} onChangeRoute={handleNavigation} route="/" />
           }>
         </Route>
         <Route
           path="/movies"
           element={
-            <Movies moviesList={moviesList}/>
+            <Movies moviesList={moviesList} onChangeRoute={handleNavigation} route="/movies" />
           } />
         <Route
           path="/saved-movies"
           element={
-            <Movies moviesList={savedMoviesList}/>
+            <Movies moviesList={savedMoviesList} onChangeRoute={handleNavigation} route="/saved-movies" />
           } />
         <Route
           path="/profile"
           element={
-            <Profile toggleFooter={toggleFooter} />
+            <Profile toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/profile" />
           } />
         <Route
           path="/signup"

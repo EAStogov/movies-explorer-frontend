@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Profile.css";
 
-function Profile({ toggleFooter }) {
+function Profile({ onChangeRoute, route, toggleFooter }) {
   const [name, setName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@yandex.ru');
 
   useEffect(() => {
     toggleFooter(false);
+    onChangeRoute(route);
   }, []);
 
   function handleChangeName(e) {
