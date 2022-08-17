@@ -1,4 +1,3 @@
-import Navigation from "../Navigation/Navigation";
 import "./Footer.css";
 
 function Footer({ isFooterShown }) {
