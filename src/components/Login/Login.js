@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Login.css";
 
-function Login({ toggleFooter }) {
+function Login({ toggleFooter, onChangeRoute, route }) {
   const [email, setEmail] = useState('pochta@yandex.ru');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
     toggleFooter(false);
+    onChangeRoute(route);
   }, []);
 
   function handleChangeEmail(e) {

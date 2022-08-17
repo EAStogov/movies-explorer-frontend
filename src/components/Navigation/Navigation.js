@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Burger from "../Burger/Burger";
 import "./Navigation.css";
 
-function Navigation({ isHeaderAuth, route }) {
+function Navigation({ isHeaderMain, route }) {
   const [isBurgerOpened, setIsBurgerOpened] = useState(false);
 
   function handleBurgerClick() {
@@ -12,8 +12,8 @@ function Navigation({ isHeaderAuth, route }) {
   }
 
   return (
-    <div className={`navigation ${!route && 'navigation__hidden'}`}>
-      {isHeaderAuth ? (
+    <div className={`navigation ${(route === '/signin' || route === '/signup') && 'navigation__hidden'}`}>
+      {isHeaderMain ? (
         <ul className="navigation__list navigation__auth">
           <li className="navigation__list-item">
             <button className="navigation__button navigation__button_type_register">

@@ -15,6 +15,7 @@ import { useState } from "react";
 function App() {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(true);
+  const [isHeaderMain, setIsHeaderMain] = useState(false);
   const [isHeaderAuth, setIsHeaderAuth] = useState(false);
   const [route, setRoute] = useState("")
 
@@ -27,6 +28,10 @@ function App() {
   }
 
   function toggleHeaderNavigation(value) {
+    setIsHeaderMain(value);
+  }
+
+  function toggleHeaderAuth(value) {
     setIsHeaderAuth(value);
   }
 
@@ -36,12 +41,12 @@ function App() {
 
   return (
     <div className="page">
-      <Header isHeaderShown={isHeaderShown} isHeaderAuth={isHeaderAuth} route={route} />
+      <Header isHeaderShown={isHeaderShown} isHeaderAuth={isHeaderAuth} isHeaderMain={isHeaderMain} route={route} />
       <Routes>
         <Route
           path="/"
           element={
-            <Main toggleHeaderNavigation={toggleHeaderNavigation} toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/" />
+            <Main toggleHeaderNavigation={toggleHeaderNavigation} toggleHeaderAuth={toggleHeaderAuth} toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/" />
           }>
         </Route>
         <Route
@@ -62,12 +67,12 @@ function App() {
         <Route
           path="/signup"
           element={
-            <Register toggleFooter={toggleFooter} />
+            <Register toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signup" />
           } />
         <Route
           path="/signin"
           element={
-            <Login toggleFooter={toggleFooter} />
+            <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" />
           } />
           <Route
             path="*"

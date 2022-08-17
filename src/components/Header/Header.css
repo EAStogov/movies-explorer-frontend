@@ -10,8 +10,35 @@
   }
 }
 
+@media screen and (max-width: 410px) {
+  .header {
+    padding: 18px 14px;
+  }
+}
+
 .header_grey {
   background-color: #DDDEE3;
+}
+
+.header_auth {
+  width: 410px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 70px 0 0;
+}
+
+@media screen and (max-width: 780px) {
+  .header_auth {
+    padding-top: 232px; 
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .header_auth {
+    padding: 56px 14px 0;
+    margin-bottom: 10px;
+    width: 38px;
+  }
 }
 
 .header__hidden {
