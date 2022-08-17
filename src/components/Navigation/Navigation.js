@@ -8,7 +8,6 @@ function Navigation({ isHeaderMain, route }) {
 
   function handleBurgerClick() {
     setIsBurgerOpened(!isBurgerOpened);
-    console.log("click");
   }
 
   return (
