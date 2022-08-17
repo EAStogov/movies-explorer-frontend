@@ -19,7 +19,7 @@ function NotFound({ toggleHeader, toggleFooter }) {
         <h1 className="error-page__title">404</h1>
         <p className="error-page__subtitle">Страница не найдена</p>
       </div>
-      <button type="button" className="error-page__button-link" onClick={handleButtonClick}>
+      <button type="button" className="page__button error-page__button-link" onClick={handleButtonClick}>
         Назад
       </button>
     </section>

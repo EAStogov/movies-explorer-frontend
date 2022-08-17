@@ -9,7 +9,7 @@ function Footer({ isFooterShown }) {
         <ul className="footer__nav">
           <li className="footer__nav-item">
             <a
-              className="footer__nav-link"
+              className="page__link footer__nav-link"
               href="https://practicum.yandex.ru"
               target="_blank"
               rel="noreferrer"
@@ -19,7 +19,7 @@ function Footer({ isFooterShown }) {
           </li>
           <li className="footer__nav-item">
             <a
-              className="footer__nav-link"
+              className="page__link footer__nav-link"
               href="https://github.com/EAStogov"
               target="_blank"
               rel="noreferrer"
@@ -29,7 +29,7 @@ function Footer({ isFooterShown }) {
           </li>
           <li className="footer__nav-item">
             <a
-              className="footer__nav-link"
+              className="page__link footer__nav-link"
               href="https://facebook.com"
               target="_blank"
               rel="noreferrer"

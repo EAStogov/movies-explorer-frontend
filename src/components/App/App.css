@@ -9,6 +9,23 @@
   color: #000;
 }
 
+.page__button {
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+}
+
+.page__button:hover {
+  opacity: .8;
+}
+
+.page__link {
+  transition: opacity .2s ease-in-out;
+}
+
+.page__link:hover {
+  opacity: .7;
+}
+
 .page__nav-title {
   margin: 0;
   font-size: 22px;

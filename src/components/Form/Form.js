@@ -6,7 +6,7 @@ function Form({ title, submitText, navLinkText, navLinkButtonText, children, isF
     <form className="form">
       <h2 className={`form__title ${isForEdit && "form__title_type_edit"}`}>{title}</h2>
       {children}
-      <button className={`form__submit ${isForEdit && "form__submit_type_edit"}`} type="submit">
+      <button className={`page__button form__submit ${isForEdit && "form__submit_type_edit"}`} type="submit">
         {submitText}
       </button>
       <div className="form__navLink-container">
@@ -15,7 +15,7 @@ function Form({ title, submitText, navLinkText, navLinkButtonText, children, isF
         </p>
         <NavLink
           to={route}
-          className={`form__redirect-button ${isForEdit && "form__redirect-button_type_edit"}`}
+          className={`page__link form__redirect-button ${isForEdit && "form__redirect-button_type_edit"}`}
         >
           {navLinkButtonText}
         </NavLink>

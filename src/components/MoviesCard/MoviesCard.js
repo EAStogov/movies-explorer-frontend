@@ -13,7 +13,7 @@ function MoviesCard({ name, duration, image, saved }) {
         <p className="movie-card__duration">{duration}</p>
         <button
           type="button"
-          className={`movie-card__like ${isSaved && "movie-card__like_active"} ${
+          className={`page__button movie-card__like ${isSaved && "movie-card__like_active"} ${
             window.location.href === "http://localhost:3000/saved-movies" && "movie-card__remove"
           }`}
           onClick={toggleLike}

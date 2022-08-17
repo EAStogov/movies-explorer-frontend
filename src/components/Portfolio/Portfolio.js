@@ -7,7 +7,7 @@ function Portfolio() {
       <ul className="portfolio__links-list">
         <li className="portfolio__link-container">
           <a
-            className="portfolio__link"
+            className="page__link portfolio__link"
             href="https://eastogov.github.io/how-to-learn/"
             target="_blank"
             rel="noreferrer"
@@ -18,7 +18,7 @@ function Portfolio() {
         </li>
         <li className="portfolio__link-container">
           <a
-            className="portfolio__link"
+            className="page__link portfolio__link"
             href="https://eastogov.github.io/russian-travel/index.html"
             target="_blank"
             rel="noreferrer"
@@ -29,7 +29,7 @@ function Portfolio() {
         </li>
         <li className="portfolio__link-container">
           <a
-            className="portfolio__link"
+            className="page__link portfolio__link"
             href="https://esto.mesto.nomoredomains.xyz/"
             target="_blank"
             rel="noreferrer"
