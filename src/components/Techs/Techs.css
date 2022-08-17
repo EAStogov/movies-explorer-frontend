@@ -15,6 +15,7 @@
 @media screen and (max-width: 530px) {
   .techs {
     padding: 60px 14px 70px;
+    background-color: inherit;
   }
 }
 
