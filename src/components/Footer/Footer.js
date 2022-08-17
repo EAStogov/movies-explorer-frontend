@@ -14,7 +14,7 @@ function Footer({ isFooterShown }) {
             <a className="footer__nav-link" href="https://github.com/EAStogov" target="_blank" rel="noreferrer">Github</a>
           </li>
           <li className="footer__nav-item">
-            <a className="footer__nav-link" href="https://vk.com/id15985072" target="_blank" rel="noreferrer">VK</a>
+            <a className="footer__nav-link" href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
           </li>
         </ul>
       </div>

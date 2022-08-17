@@ -6,6 +6,10 @@
   flex-grow: 1;
 }
 
+.navigation__hidden {
+  display: none;
+}
+
 .navigation__list {
   display: flex;
   margin: 0;

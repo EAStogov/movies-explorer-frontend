@@ -12,7 +12,7 @@ function Navigation({ isHeaderAuth, route }) {
   }
 
   return (
-    <div className="navigation">
+    <div className={`navigation ${!route && 'navigation__hidden'}`}>
       {isHeaderAuth ? (
         <ul className="navigation__list navigation__auth">
           <li className="navigation__list-item">

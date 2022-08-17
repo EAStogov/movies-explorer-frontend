@@ -1,4 +1,4 @@
-import avatar from "../../images/my-avatar.png";
+import avatar from "../../images/student-avatar.png";
 import "./AboutMe.css";
 import Portfolio from "../Portfolio/Portfolio";
 
@@ -8,8 +8,8 @@ function AboutMe() {
       <h2 className="page__nav-title">Студент</h2>
       <div className="me__container">
         <div className="me__desc-container">
-          <h3 className="me__name">Егор</h3>
-          <p className="me__subtitle">Фронтенд-разработчик, 27 лет</p>
+          <h3 className="me__name">Виталий</h3>
+          <p className="me__subtitle">Фронтенд-разработчик, 30 лет</p>
           <p className="me__desc">Я родился и живу в Саратове, закончил факультет экономики СГУ. 
             У меня есть жена и дочь. 
             Я люблю слушать музыку, а ещё увлекаюсь бегом. 
@@ -18,7 +18,7 @@ function AboutMe() {
           </p>
           <ul className="me__link-list">
             <li>
-              <a className="me__link" href="https://vk.com/id15985072" target="_blank" rel="noreferrer">VK</a>
+              <a className="me__link" href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
             </li>
             <li>
               <a className="me__link" href="https://github.com/EAStogov" target="_blank" rel="noreferrer">Github</a>

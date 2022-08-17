@@ -16,7 +16,7 @@ function App() {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(true);
   const [isHeaderAuth, setIsHeaderAuth] = useState(false);
-  const [route, setRoute] = useState("/")
+  const [route, setRoute] = useState("")
 
   function toggleHeader(value) {
     setIsHeaderShown(value);
@@ -41,7 +41,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Main toggleHeaderNavigation={toggleHeaderNavigation} onChangeRoute={handleNavigation} route="/" />
+            <Main toggleHeaderNavigation={toggleHeaderNavigation} toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/" />
           }>
         </Route>
         <Route
