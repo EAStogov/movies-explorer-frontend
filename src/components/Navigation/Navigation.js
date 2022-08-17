@@ -11,7 +11,11 @@ function Navigation({ isHeaderMain, route }) {
   }
 
   return (
-    <div className={`navigation ${(route === '/signin' || route === '/signup') && 'navigation__hidden'}`}>
+    <div
+      className={`navigation ${
+        (route === "/signin" || route === "/signup") && "navigation__hidden"
+      }`}
+    >
       {isHeaderMain ? (
         <ul className="navigation__list navigation__auth">
           <li className="navigation__list-item">
@@ -20,7 +24,9 @@ function Navigation({ isHeaderMain, route }) {
             </NavLink>
           </li>
           <li className="navigation__list-item">
-            <NavLink to="/signin" className="navigation__button navigation__button_type_signin">Войти</NavLink>
+            <NavLink to="/signin" className="navigation__button navigation__button_type_signin">
+              Войти
+            </NavLink>
           </li>
         </ul>
       ) : (

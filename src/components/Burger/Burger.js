@@ -9,12 +9,12 @@ function Burger() {
   }
 
   return (
-    <button className={`burger ${isActive && 'burger_active'}`} onClick={handleClick}>
+    <button className={`burger ${isActive && "burger_active"}`} onClick={handleClick}>
       <span className="burger__line"></span>
       <span className="burger__line"></span>
       <span className="burger__line"></span>
     </button>
-  )
+  );
 }
 
 export default Burger;

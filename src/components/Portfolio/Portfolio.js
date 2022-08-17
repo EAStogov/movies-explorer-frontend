@@ -1,7 +1,7 @@
 import "./Portfolio.css";
 
 function Portfolio() {
-  return(
+  return (
     <section className="portfolio">
       <h3 className="portfolio__title">Портфолио</h3>
       <ul className="portfolio__links-list">
