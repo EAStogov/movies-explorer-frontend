@@ -1,8 +1,17 @@
 .header {
   display: flex;
-  justify-content: space-between;
   max-width: 1280px;
   padding: 20px 70px;
+}
+
+@media screen and (max-width: 850px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+.header_grey {
+  background-color: #DDDEE3;
 }
 
 .header__hidden {
@@ -11,11 +20,6 @@
 
 .header__logo {
   width: 38px;
-  margin-right: auto;
-}
-
-.header__auth {
-
 }
 
 .header__button {
@@ -23,17 +27,5 @@
   border: none;
   background: none;
   cursor: pointer;
-}
-
-.header__button_type_register {
-  margin-right: 30px;
-}
-
-.header__button_type_signin {
-  width: 76px;
-  height: 32px;
-  text-align: center;
-  background-color: #3456F3;
-  border-radius: 3px;
-  color: white;
+  margin-right: 44px;
 }

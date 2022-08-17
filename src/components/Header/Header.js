@@ -1,16 +1,15 @@
 import headerLogo from "../../images/logo.svg";
+import Navigation from "../Navigation/Navigation";
+import { NavLink } from "react-router-dom";
 import "./Header.css";
 
-function Header({ isHeaderShown }) {
+function Header({ isHeaderShown, isHeaderAuth, route }) {
   return(
-    <section className={`header ${!isHeaderShown && 'header__hidden'}`}>
-      <button className="header__button">
+    <section className={`header ${!isHeaderShown && 'header__hidden'} ${isHeaderAuth && 'header_grey'}`}>
+      <NavLink to="/" className="header__button">
         <img className="header__logo" src={headerLogo} alt="Логос" />
-      </button>
-      <div className="header__auth">
-          <button className="header__button header__button_type_register">Регистрация</button>
-          <button className="header__button header__button_type_signin">Войти</button>
-        </div>
+      </NavLink>
+      <Navigation isHeaderAuth={isHeaderAuth} route={route} />
     </section>
   );
 }
