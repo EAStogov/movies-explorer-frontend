@@ -21,7 +21,7 @@ function Profile({ onChangeRoute, route, toggleFooter }) {
 
   return(
     <section className="profile">
-      <Form isForEdit={true} title="Привет, Виталий!" submitText="Редактировать" navLinkButtonText="Выйти из аккаунта">
+      <Form isForEdit={true} title="Привет, Виталий!" submitText="Редактировать" navLinkButtonText="Выйти из аккаунта" route="/">
         <div className="form__input-container form__input-container_type_edit">
           <p className="form__input-label form__input-label_type_edit">Имя</p>
           <input className="form__input form__input_type_edit" value={name} onChange={handleChangeName}/>

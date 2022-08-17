@@ -21,7 +21,7 @@ function Login({ toggleFooter, onChangeRoute, route }) {
 
   return(
     <section className="login">
-      <Form title="Рады видеть!" submitText="Войти" navLinkText="Еще не зарегистрированы?" navLinkButtonText="Регистрация">
+      <Form title="Рады видеть!" submitText="Войти" navLinkText="Еще не зарегистрированы?" navLinkButtonText="Регистрация" route="/signup">
          <div className="form__input-container">
           <p className="form__input-label">E-mail</p>
           <input className="form__input" value={email} onChange={handleChangeEmail}/>

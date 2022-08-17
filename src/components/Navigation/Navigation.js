@@ -15,12 +15,12 @@ function Navigation({ isHeaderMain, route }) {
       {isHeaderMain ? (
         <ul className="navigation__list navigation__auth">
           <li className="navigation__list-item">
-            <button className="navigation__button navigation__button_type_register">
+            <NavLink to="/signup" className="navigation__button navigation__button_type_register">
               Регистрация
-            </button>
+            </NavLink>
           </li>
           <li className="navigation__list-item">
-            <button className="navigation__button navigation__button_type_signin">Войти</button>
+            <NavLink to="/signin" className="navigation__button navigation__button_type_signin">Войти</NavLink>
           </li>
         </ul>
       ) : (

@@ -26,7 +26,7 @@ function Register({ toggleFooter, onChangeRoute, route }) {
 
   return(
     <section className="register">
-      <Form title="Добро пожаловать!" submitText="Зарегистрироваться" navLinkText="Уже зарегистрированы?" navLinkButtonText="Войти">
+      <Form title="Добро пожаловать!" submitText="Зарегистрироваться" navLinkText="Уже зарегистрированы?" navLinkButtonText="Войти" route="/signin">
         <div className="form__input-container">
           <p className="form__input-label">Имя</p>
           <input className="form__input" value={name} onChange={handleChangeName}/>

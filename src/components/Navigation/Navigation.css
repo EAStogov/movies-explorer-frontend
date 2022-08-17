@@ -84,12 +84,14 @@
 
 .navigation__button_type_register {
   margin-right: 30px;
+  font-weight: 500;
 }
 
 .navigation__button_type_signin {
   width: 76px;
   height: 32px;
   text-align: center;
+  line-height: 32px;
   background-color: #3456F3;
   border-radius: 3px;
   color: white;
