@@ -12,6 +12,7 @@ function MoviesCard({ name, duration, image, saved }) {
         <h2 className="movie-card__title">{name}</h2>
         <p className="movie-card__duration">{duration}</p>
         <button
+          type="button"
           className={`movie-card__like ${isSaved && "movie-card__like_active"} ${
             window.location.href === "http://localhost:3000/saved-movies" && "movie-card__remove"
           }`}

@@ -9,6 +9,7 @@ function FilterCheckbox() {
   return (
     <div className="filter">
       <button
+        type="button"
         className={`filter__checkbox ${isChecked && "filter__checkbox_active"}`}
         onClick={toggleCheck}
       >
