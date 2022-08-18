@@ -1,0 +1,129 @@
+.promo {
+  display: flex;
+  max-width: 100%;
+  background-color: #DDDEE3;
+  padding: 75px 70px 75px;
+}
+
+.promo__desc {
+  max-width: 500px;
+  margin-right: auto;
+}
+
+.promo__title {
+  margin: 0;
+  font-size: 50px;
+  font-weight: 400;
+  width: 640px;
+  margin-bottom: 36px;
+  line-height: 58px;
+}
+
+.promo__subtitle {
+  margin: 0;
+  font-size: 13px;
+  width: 310px;
+  margin-bottom: 146px;
+  opacity: .5;
+}
+
+.promo__button {
+  padding: 10px 20px;
+  margin: 0;
+  border:  1px solid black;
+  border-radius: 3px;
+  background: none;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.promo__image-container {
+  width: 310px;
+  height: 304px;
+  background-image: url(../../images/promo-image.svg);
+  background-size: cover;
+}
+
+/* 1060px */
+
+@media screen and (max-width: 1060px) {
+  .promo {
+    flex-direction: column;
+    padding: 140px 44px 75px;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .promo__desc {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .promo__title {
+    width: 680px;
+    text-align: center;
+    margin-bottom: 22px;
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .promo__subtitle {
+    margin-bottom: 92px;
+    text-align: center;
+    width: 260px;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .promo__image-container {
+    margin-bottom: 48px;
+  }
+}
+
+/* 690px */
+
+@media screen and (max-width: 690px) {
+  .promo {
+    padding: 70px 10px 30px;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .promo__title {
+    width: 100%;
+  }
+}
+
+/* 460px */
+
+@media screen and (max-width: 460px) {
+  .promo__image-container {
+    width: 210px;
+    height: 206px;
+    margin-bottom: 44px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .promo__title {
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.04em;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .promo__subtitle {
+    margin-bottom: 80px;
+  }
+}

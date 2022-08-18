@@ -1,0 +1,44 @@
+@import url(../../vendor/normalize.css);
+@import url(../../vendor/inter.css);
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  color: #000;
+}
+
+.page__button {
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+}
+
+.page__button:hover {
+  opacity: .8;
+}
+
+.page__link {
+  transition: opacity .2s ease-in-out;
+}
+
+.page__link:hover {
+  opacity: .7;
+}
+
+.page__nav-title {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  padding-bottom: 23px;
+}
+
+@media screen and (max-width: 450px) {
+  .page__nav-title {
+    font-size: 18px;
+    padding-bottom: 28px;
+  }
+}

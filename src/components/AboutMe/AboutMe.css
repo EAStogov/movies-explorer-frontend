@@ -1,0 +1,165 @@
+/* me */
+
+.me {
+  padding: 110px 70px 125px;
+}
+
+@media screen and (max-width: 880px) {
+  .me {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .me {
+    padding: 70px 14px;
+  }
+}
+
+/* me__container */
+
+.me__container {
+  display: flex;
+  margin: 66px 0 100px;
+}
+
+@media screen and (max-width: 620px) {
+  .me__container {
+    flex-direction: column;
+    margin-bottom: 69px;
+  }
+}
+
+/* me__desc-container */
+
+.me__desc-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin-right: 50px;
+}
+
+@media screen and (max-width: 620px) {
+  .me__desc-container {
+    margin-right: 0;
+    margin-top: 40px;
+    order: 2;
+  }
+}
+
+/* me__name */
+
+.me__name {
+  margin: 0 0 18px;
+  font-size: 50px;
+  line-height: 58px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 880px) {
+  .me__name {
+    margin-bottom: 16px;
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .me__name {
+    margin-bottom: 20px;
+    font-size: 30px;
+    line-height: auto;
+  }
+}
+
+/* me__subtitle */
+
+.me__subtitle {
+  margin: 0 0 26px;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 880px) {
+  .me__subtitle {
+    margin-bottom: 20px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .me__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+/* me__desc */
+
+.me__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 880px) {
+  .me__desc {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .me__desc {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+}
+
+/* me__link-list */
+
+.me__link-list {
+  list-style-type: none;
+  padding: 0;
+  margin: auto 0 0;
+  display: flex;
+}
+
+/* me__link */
+
+.me__link {
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 20px;
+  color: black;
+  text-decoration: none;
+}
+
+/* me__avatar */
+
+.me__avatar {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 880px) {
+  .me__avatar {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .me__avatar {
+    width: 292px;
+    height: 352px;
+    margin-right: auto;
+  }
+}
