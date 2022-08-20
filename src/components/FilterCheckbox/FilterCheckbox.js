@@ -1,20 +1,16 @@
-import { useState } from "react";
 import "./FilterCheckbox.css";
 
-function FilterCheckbox() {
-  const [isChecked, setIsChecked] = useState(true);
-  function toggleCheck() {
-    setIsChecked(!isChecked);
-  }
+function FilterCheckbox({ isShortMovie, handleFilterClick }) {
+  
   return (
     <div className="filter">
       <button
         type="button"
-        className={`filter__checkbox ${isChecked && "filter__checkbox_active"}`}
-        onClick={toggleCheck}
+        className={`filter__checkbox ${isShortMovie && "filter__checkbox_active"}`}
+        onClick={handleFilterClick}
       >
         <div
-          className={`filter__checkbox-circle ${isChecked && "filter__checkbox-circle_active"}`}
+          className={`filter__checkbox-circle ${isShortMovie && "filter__checkbox-circle_active"}`}
         ></div>
       </button>
       <p className="filter__title">Короткометражки</p>

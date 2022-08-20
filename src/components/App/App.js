@@ -18,6 +18,21 @@ function App() {
   const [isHeaderMain, setIsHeaderMain] = useState(false);
   const [isHeaderAuth, setIsHeaderAuth] = useState(false);
   const [route, setRoute] = useState("");
+  const [searchKeywords, setSearchKeywords] = useState('');
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [moviesList, setMoviesList] = useState([]);
+
+  function handleFilterClick() {
+    setIsShortMovie(!isShortMovie);
+  }
+
+  function handleChangeKeywords(value) {
+    setSearchKeywords(value);
+  }
+
+  function handleSubmitSearch(list) {
+    setMoviesList(list);
+  }
 
   function toggleHeader(value) {
     setIsHeaderShown(value);
@@ -64,7 +79,16 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movies moviesList={moviesList} onChangeRoute={handleNavigation} route="/movies" />
+              <Movies
+                moviesList={moviesList}
+                onChangeRoute={handleNavigation}
+                route="/movies"
+                searchKeywords={searchKeywords}
+                isShortMovie={isShortMovie}
+                handleSubmitSearch={handleSubmitSearch}
+                handleFilterClick={handleFilterClick}
+                onChangeKeywords={handleChangeKeywords}
+              />
             }
           />
           <Route
