@@ -10,7 +10,7 @@ function MoviesCard({ name, duration, image, saved }) {
     <li className="movie-card">
       <div className="movie-card__container">
         <h2 className="movie-card__title">{name}</h2>
-        <p className="movie-card__duration">{duration}</p>
+        <p className="movie-card__duration">{duration < 60 ? `${duration}м` : `${Math.floor(duration / 60)}ч ${duration % 60}м` }</p>
         <button
           type="button"
           className={`page__button movie-card__like ${isSaved && "movie-card__like_active"} ${
