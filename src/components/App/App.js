@@ -1,6 +1,6 @@
 import "../../vendor/normalize.css";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -11,6 +11,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import { useState } from "react";
+import * as auth from "../../utils/Auth";
 
 function App() {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
@@ -21,6 +22,7 @@ function App() {
   const [searchKeywords, setSearchKeywords] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
+  const navigate = useNavigate();
 
   function handleFilterClick() {
     setIsShortMovie(!isShortMovie);
@@ -52,6 +54,34 @@ function App() {
 
   function handleNavigation(value) {
     setRoute(value);
+  }
+
+  function handleRegisterSubmit(name, email, password) {
+    auth.register(name, email, password)
+      .then(res => {
+        if (res.ok) {
+          auth.login(email, password)
+            .then(result => {
+              if (result.ok) {
+                navigate('/movies');
+                return result.json()
+              } else {
+                return Promise.reject(res);
+              }
+            })
+            .then(data => {
+              document.cookie = `jwt=${data.token}`
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        } else {
+          return Promise.reject(res);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   return (
@@ -118,6 +148,7 @@ function App() {
                 toggleFooter={toggleFooter}
                 onChangeRoute={handleNavigation}
                 route="/signup"
+                onSubmit={handleRegisterSubmit}
               />
             }
           />

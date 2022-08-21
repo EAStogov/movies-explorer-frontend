@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Register.css";
 
-function Register({ toggleFooter, onChangeRoute, route }) {
-  const [name, setName] = useState("Виталий");
-  const [email, setEmail] = useState("pochta@yandex.ru");
-  const [password, setPassword] = useState("123456789");
+function Register({ toggleFooter, onChangeRoute, route, onSubmit }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     toggleFooter(false);
@@ -24,6 +24,11 @@ function Register({ toggleFooter, onChangeRoute, route }) {
     setPassword(e.target.value);
   }
 
+  function handleSubmitButton(evt) {
+    evt.preventDefault();
+    onSubmit(name, email, password);
+  }
+
   return (
     <section className="register">
       <Form
@@ -32,6 +37,7 @@ function Register({ toggleFooter, onChangeRoute, route }) {
         navLinkText="Уже зарегистрированы?"
         navLinkButtonText="Войти"
         route="/signin"
+        onSubmit={handleSubmitButton}
       >
         <div className="form__input-container">
           <p className="form__input-label">Имя</p>
