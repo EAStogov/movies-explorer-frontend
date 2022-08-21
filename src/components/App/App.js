@@ -12,6 +12,7 @@ import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import { useState } from "react";
 import * as auth from "../../utils/Auth";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
@@ -22,6 +23,8 @@ function App() {
   const [searchKeywords, setSearchKeywords] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
   function handleFilterClick() {
@@ -134,37 +137,43 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movies
-                moviesList={moviesList}
-                onChangeRoute={handleNavigation}
-                route="/movies"
-                searchKeywords={searchKeywords}
-                isShortMovie={isShortMovie}
-                handleSubmitSearch={handleSubmitSearch}
-                handleFilterClick={handleFilterClick}
-                onChangeKeywords={handleChangeKeywords}
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Movies
+                  moviesList={moviesList}
+                  onChangeRoute={handleNavigation}
+                  route="/movies"
+                  searchKeywords={searchKeywords}
+                  isShortMovie={isShortMovie}
+                  handleSubmitSearch={handleSubmitSearch}
+                  handleFilterClick={handleFilterClick}
+                  onChangeKeywords={handleChangeKeywords}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/saved-movies"
             element={
-              <Movies
-                moviesList={savedMoviesList}
-                onChangeRoute={handleNavigation}
-                route="/saved-movies"
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Movies
+                  moviesList={savedMoviesList}
+                  onChangeRoute={handleNavigation}
+                  route="/saved-movies"
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/profile"
             element={
-              <Profile
-                toggleFooter={toggleFooter}
-                onChangeRoute={handleNavigation}
-                route="/profile"
-                onClickLogoutButton={unSign}
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Profile
+                  toggleFooter={toggleFooter}
+                  onChangeRoute={handleNavigation}
+                  route="/profile"
+                  onClickLogoutButton={unSign}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
