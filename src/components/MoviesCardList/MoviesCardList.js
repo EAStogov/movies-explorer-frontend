@@ -4,15 +4,33 @@ import { useEffect, useState } from "react";
 
 function MoviesCardList({ moviesList }) {
   const [moviesBlock, setMoviesBlock] = useState([]);
+  const windowWidth = useWindowSize();
 
   function handleButtonClick() {
-    setMoviesBlock(moviesList.slice(0, moviesBlock.length + 7));
+    setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
   }
 
   useEffect(() => {
     moviesBlock.length = 0;
-    setMoviesBlock(moviesList.slice(0, moviesBlock.length + 7));
+    setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
   }, [moviesList]);
+
+function useWindowSize() {
+  const [windowWidth, setWindowWidth] = useState(undefined);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    
+    window.addEventListener("resize", handleResize);
+    
+    handleResize();
+    
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowWidth;
+}
 
   return (
     <section className="movies">
