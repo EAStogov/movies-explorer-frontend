@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Login.css";
 
-function Login({ toggleFooter, onChangeRoute, route }) {
-  const [email, setEmail] = useState("pochta@yandex.ru");
-  const [password, setPassword] = useState("");
+function Login({ toggleFooter, onChangeRoute, route, onSubmit }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     toggleFooter(false);
@@ -19,6 +19,11 @@ function Login({ toggleFooter, onChangeRoute, route }) {
     setPassword(e.target.value);
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onSubmit(email, password);
+  }
+
   return (
     <section className="login">
       <Form
@@ -27,6 +32,7 @@ function Login({ toggleFooter, onChangeRoute, route }) {
         navLinkText="Еще не зарегистрированы?"
         navLinkButtonText="Регистрация"
         route="/signup"
+        onSubmit={handleSubmit}
       >
         <div className="form__input-container">
           <p className="form__input-label">E-mail</p>

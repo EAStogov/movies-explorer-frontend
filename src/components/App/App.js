@@ -64,13 +64,13 @@ function App() {
             .then(result => {
               if (result.ok) {
                 navigate('/movies');
-                return result.json()
+                return result.json();
               } else {
                 return Promise.reject(res);
               }
             })
             .then(data => {
-              document.cookie = `jwt=${data.token}`
+              document.cookie = `jwt=${data.token}`;
             })
             .catch(err => {
               console.log(err);
@@ -78,6 +78,24 @@ function App() {
         } else {
           return Promise.reject(res);
         }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  function handleLoginSubmit(email, password) {
+    auth.login(email, password)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(res);
+        }
+      })
+      .then(data => {
+        document.cookie = `jwt=${data.token}`;
+        navigate('/movies');
       })
       .catch(err => {
         console.log(err);
@@ -155,7 +173,7 @@ function App() {
           <Route
             path="/signin"
             element={
-              <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" />
+              <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" onSubmit={handleLoginSubmit} />
             }
           />
           <Route
