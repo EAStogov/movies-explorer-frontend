@@ -40,7 +40,7 @@ export const signout = () => {
 }
 
 export const authorizate = () => {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${baseUrl}/me`, {
     method: 'GET',
     credentials: 'include',
     headers: {
