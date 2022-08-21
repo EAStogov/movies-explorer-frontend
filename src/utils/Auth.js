@@ -31,7 +31,7 @@ export const login = (email, password) => {
 
 export const signout = () => {
   return fetch(`${baseUrl}/signout`, {
-    method: 'GET',
+    method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json'

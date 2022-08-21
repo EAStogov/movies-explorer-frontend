@@ -102,6 +102,13 @@ function App() {
       })
   }
 
+  function unSign() {
+    auth.signout()
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   return (
     <div className="page">
       <Header
@@ -156,6 +163,7 @@ function App() {
                 toggleFooter={toggleFooter}
                 onChangeRoute={handleNavigation}
                 route="/profile"
+                onClickLogoutButton={unSign}
               />
             }
           />

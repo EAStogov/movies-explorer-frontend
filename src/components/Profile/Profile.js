@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Profile.css";
 
-function Profile({ onChangeRoute, route, toggleFooter }) {
+function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton }) {
   const [name, setName] = useState("Виталий");
   const [email, setEmail] = useState("pochta@yandex.ru");
 
@@ -27,6 +27,7 @@ function Profile({ onChangeRoute, route, toggleFooter }) {
         submitText="Редактировать"
         navLinkButtonText="Выйти из аккаунта"
         route="/"
+        onClickLogoutButton={onClickLogoutButton}
       >
         <div className="form__input-container form__input-container_type_edit">
           <p className="form__input-label form__input-label_type_edit">Имя</p>

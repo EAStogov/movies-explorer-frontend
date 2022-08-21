@@ -1,7 +1,7 @@
 import "./Form.css";
 import { NavLink } from "react-router-dom";
 
-function Form({ title, submitText, navLinkText, navLinkButtonText, children, isForEdit, route, onSubmit }) {
+function Form({ title, submitText, navLinkText, navLinkButtonText, children, isForEdit, route, onSubmit, onClickLogoutButton }) {
   return (
     <form className="form" onSubmit={onSubmit}>
       <h2 className={`form__title ${isForEdit && "form__title_type_edit"}`}>{title}</h2>
@@ -16,6 +16,7 @@ function Form({ title, submitText, navLinkText, navLinkButtonText, children, isF
         <NavLink
           to={route}
           className={`page__link form__redirect-button ${isForEdit && "form__redirect-button_type_edit"}`}
+          onClick={onClickLogoutButton}
         >
           {navLinkButtonText}
         </NavLink>
