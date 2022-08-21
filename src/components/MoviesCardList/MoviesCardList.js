@@ -4,19 +4,11 @@ import { useEffect, useState } from "react";
 
 function MoviesCardList({ moviesList }) {
   const [moviesBlock, setMoviesBlock] = useState([]);
-  const windowWidth = useWindowSize();
+  const [windowWidth, setWindowWidth] = useState(undefined);
 
   function handleButtonClick() {
     setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
   }
-
-  useEffect(() => {
-    moviesBlock.length = 0;
-    setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
-  }, [moviesList]);
-
-function useWindowSize() {
-  const [windowWidth, setWindowWidth] = useState(undefined);
 
   useEffect(() => {
     function handleResize() {
@@ -29,8 +21,11 @@ function useWindowSize() {
     
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  return windowWidth;
-}
+
+  useEffect(() => {
+    moviesBlock.length = 0;
+    setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
+  }, [moviesList]);
 
   return (
     <section className="movies">
