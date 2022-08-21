@@ -17,13 +17,12 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 function App() {
   const [isHeaderShown, setIsHeaderShown] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(true);
-  const [isHeaderMain, setIsHeaderMain] = useState(false);
   const [isHeaderAuth, setIsHeaderAuth] = useState(false);
   const [route, setRoute] = useState("");
   const [searchKeywords, setSearchKeywords] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navigate = useNavigate();
 
@@ -45,10 +44,6 @@ function App() {
 
   function toggleFooter(value) {
     setIsFooterShown(value);
-  }
-
-  function toggleHeaderNavigation(value) {
-    setIsHeaderMain(value);
   }
 
   function toggleHeaderAuth(value) {
@@ -117,8 +112,8 @@ function App() {
       <Header
         isHeaderShown={isHeaderShown}
         isHeaderAuth={isHeaderAuth}
-        isHeaderMain={isHeaderMain}
         route={route}
+        isLoggedIn={isLoggedIn}
       />
       <main>
         <Routes>
@@ -126,7 +121,6 @@ function App() {
             path="/"
             element={
               <Main
-                toggleHeaderNavigation={toggleHeaderNavigation}
                 toggleHeaderAuth={toggleHeaderAuth}
                 toggleFooter={toggleFooter}
                 onChangeRoute={handleNavigation}
