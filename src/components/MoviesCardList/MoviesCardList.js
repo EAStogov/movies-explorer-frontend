@@ -1,11 +1,23 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { useEffect, useState } from "react";
 
 function MoviesCardList({ moviesList }) {
+  const [moviesBlock, setMoviesBlock] = useState([]);
+
+  function handleButtonClick() {
+    setMoviesBlock(moviesList.slice(0, moviesBlock.length + 7));
+  }
+
+  useEffect(() => {
+    moviesBlock.length = 0;
+    setMoviesBlock(moviesList.slice(0, moviesBlock.length + 7));
+  }, [moviesList]);
+
   return (
     <section className="movies">
       <ul className="movies__card-list">
-        {moviesList.map((movie) => {
+        {moviesBlock.map((movie) => {
           return (
             <MoviesCard
               name={movie.nameRU}
@@ -17,8 +29,15 @@ function MoviesCardList({ moviesList }) {
           );
         })}
       </ul>
-      <button type="button" className="page__button movies__more">
-        Еще
+      <button
+        type="button"
+        className={`page__button movies__more ${
+          (moviesBlock.length === 0 || moviesBlock.length === moviesList.length) &&
+          "movies__more_hidden"
+        }`}
+        onClick={handleButtonClick}
+      >
+        Ещё
       </button>
     </section>
   );
