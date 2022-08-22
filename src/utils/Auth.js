@@ -42,7 +42,7 @@ export const signout = () => {
 export const authorizate = () => {
   return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
-    credentials: 'includes',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
     }
