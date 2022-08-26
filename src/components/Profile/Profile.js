@@ -2,28 +2,25 @@ import { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import "./Profile.css";
 
-function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton }) {
-  const [name, setName] = useState("Виталий");
-  const [email, setEmail] = useState("pochta@yandex.ru");
-
+function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, route, toggleFooter, onClickLogoutButton }) {
   useEffect(() => {
     toggleFooter(false);
     onChangeRoute(route);
   }, []);
 
   function handleChangeName(e) {
-    setName(e.target.value);
+    onChangeName(e.target.value);
   }
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    onChangeEmail(e.target.value);
   }
 
   return (
     <section className="profile">
       <Form
         isForEdit={true}
-        title="Привет, Виталий!"
+        title={`Привет, ${name}!`}
         submitText="Редактировать"
         navLinkButtonText="Выйти из аккаунта"
         route="/"

@@ -10,7 +10,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as auth from "../../utils/Auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
@@ -22,9 +22,32 @@ function App() {
   const [searchKeywords, setSearchKeywords] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+      auth.authorizate()
+        .then(res => {
+          if (!res.ok) {
+            navigate('/');
+            return Promise.reject(res);
+          }
+          return res.json();
+        })
+        .then((res) => {
+          if (res) {
+            signIn(res.data.name, res.data.email);
+          }
+        })
+        .catch(err => {
+          if (err.status === 401) {
+            navigate('/');
+          }
+        })
+    }, []);
 
   function handleFilterClick() {
     setIsShortMovie(!isShortMovie);
@@ -54,6 +77,14 @@ function App() {
     setRoute(value);
   }
 
+  function handleChangeName(name) {
+    setUserName(name);
+  }
+
+  function handleChangeEmail(email) {
+    setUserEmail(email);
+  }
+
   function handleRegisterSubmit(name, email, password) {
     auth.register(name, email, password)
       .then(res => {
@@ -66,9 +97,6 @@ function App() {
               } else {
                 return Promise.reject(res);
               }
-            })
-            .then(data => {
-              document.cookie = `jwt=${data.token}`;
             })
             .catch(err => {
               console.log(err);
@@ -86,18 +114,23 @@ function App() {
     auth.login(email, password)
       .then(res => {
         if (res.ok) {
+          setIsLoggedIn(true);
+          navigate('/movies');
           return res.json();
         } else {
           return Promise.reject(res);
         }
       })
-      .then(data => {
-        document.cookie = `jwt=${data.token}`;
-        navigate('/movies');
-      })
       .catch(err => {
         console.log(err);
       })
+  }
+
+  function signIn(name, email) {
+    setUserName(name);
+    setUserEmail(email);
+    setIsLoggedIn(true);
+    navigate('/movies');
   }
 
   function unSign() {
@@ -162,6 +195,10 @@ function App() {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Profile
+                  name={userName}
+                  email={userEmail}
+                  onChangeName={handleChangeName}
+                  onChangeEmail={handleChangeEmail}
                   toggleFooter={toggleFooter}
                   onChangeRoute={handleNavigation}
                   route="/profile"
