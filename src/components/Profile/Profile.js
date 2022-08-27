@@ -33,7 +33,7 @@ function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, rout
           <p className="form__input-label form__input-label_type_edit">Имя</p>
           <input
             className="form__input form__input_type_edit"
-            value={currentUser.name}
+            value={name}
             onChange={handleChangeName}
           />
         </div>
@@ -41,7 +41,7 @@ function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, rout
           <p className="form__input-label form__input-label_type_edit">E-mail</p>
           <input
             className="form__input form__input_type_edit"
-            value={currentUser.email}
+            value={email}
             onChange={handleChangeEmail}
           />
         </div>

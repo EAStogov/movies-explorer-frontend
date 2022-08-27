@@ -117,6 +117,8 @@ function App() {
 
   function signIn(user) {
     setCurrentUser(user);
+    setUserName(user.name);
+    setUserEmail(user.email);
     setIsLoggedIn(true);
     navigate('/movies');
   }
