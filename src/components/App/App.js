@@ -13,8 +13,10 @@ import NotFound from "../NotFound/NotFound";
 import { useEffect, useState } from "react";
 import * as auth from "../../utils/Auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
   const [isHeaderShown, setIsHeaderShown] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(true);
   const [isHeaderAuth, setIsHeaderAuth] = useState(false);
@@ -31,16 +33,8 @@ function App() {
   useEffect(() => {
       auth.authorizate()
         .then(res => {
-          if (!res.ok) {
-            navigate('/');
-            return Promise.reject(res);
-          }
-          return res.json();
-        })
-        .then((res) => {
-          if (res) {
-            signIn(res.data.name, res.data.email);
-          }
+          navigate('/');
+          signIn(res.data);
         })
         .catch(err => {
           if (err.status === 401) {
@@ -113,28 +107,25 @@ function App() {
   function handleLoginSubmit(email, password) {
     auth.login(email, password)
       .then(res => {
-        if (res.ok) {
-          setIsLoggedIn(true);
-          navigate('/movies');
-          return res.json();
-        } else {
-          return Promise.reject(res);
-        }
+        setIsLoggedIn(true);
+        navigate('/movies');
       })
       .catch(err => {
         console.log(err);
       })
   }
 
-  function signIn(name, email) {
-    setUserName(name);
-    setUserEmail(email);
+  function signIn(user) {
+    setCurrentUser(user);
     setIsLoggedIn(true);
     navigate('/movies');
   }
 
   function unSign() {
     auth.signout()
+    .then(res => {
+    setIsLoggedIn(false);
+    })
       .catch(err => {
         console.log(err);
       })
@@ -149,6 +140,7 @@ function App() {
         isLoggedIn={isLoggedIn}
       />
       <main>
+    <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route
             path="/"
@@ -229,6 +221,7 @@ function App() {
             element={<NotFound toggleHeader={toggleHeader} toggleFooter={toggleFooter} />}
           />
         </Routes>
+      </CurrentUserContext.Provider>
       </main>
       <Footer isFooterShown={isFooterShown} />
     </div>

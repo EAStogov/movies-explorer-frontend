@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Form from "../Form/Form";
 import "./Profile.css";
 
 function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, route, toggleFooter, onClickLogoutButton }) {
+  const currentUser = useContext(CurrentUserContext);
+
   useEffect(() => {
     toggleFooter(false);
     onChangeRoute(route);
@@ -20,7 +23,7 @@ function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, rout
     <section className="profile">
       <Form
         isForEdit={true}
-        title={`Привет, ${name}!`}
+        title={`Привет, ${currentUser.name}!`}
         submitText="Редактировать"
         navLinkButtonText="Выйти из аккаунта"
         route="/"
@@ -30,7 +33,7 @@ function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, rout
           <p className="form__input-label form__input-label_type_edit">Имя</p>
           <input
             className="form__input form__input_type_edit"
-            value={name}
+            value={currentUser.name}
             onChange={handleChangeName}
           />
         </div>
@@ -38,7 +41,7 @@ function Profile({ name, email, onChangeName, onChangeEmail, onChangeRoute, rout
           <p className="form__input-label form__input-label_type_edit">E-mail</p>
           <input
             className="form__input form__input_type_edit"
-            value={email}
+            value={currentUser.email}
             onChange={handleChangeEmail}
           />
         </div>
