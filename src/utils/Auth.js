@@ -1,7 +1,18 @@
 export const baseUrl = 'https://api.esto.movie.nomoredomains.xyz';
 
+function _makeRequest(promise) {
+  return promise
+          .then(res => {
+            if (res.ok) {
+              return res.json();
+            } else {
+              return Promise.reject(res);
+            }
+          })
+}
+
 export const register = (name, email, password) => {
-  return fetch(`${baseUrl}/signup`, {
+  return _makeRequest(fetch(`${baseUrl}/signup`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -12,11 +23,11 @@ export const register = (name, email, password) => {
       email: email,
       password: password
     })
-  })
+  }))
 }
 
 export const login = (email, password) => {
-  return fetch(`${baseUrl}/signin`, {
+  return _makeRequest(fetch(`${baseUrl}/signin`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -26,22 +37,22 @@ export const login = (email, password) => {
       email: email,
       password: password
     })
-  })
+  }))
 }
 
 export const signout = () => {
-  return fetch(`${baseUrl}/signout`, {
+  return _makeRequest(fetch(`${baseUrl}/signout`, {
     method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
     },
-  })
+  }))
 }
 
 export const authorizate = () => {
-  return fetch(`${baseUrl}/users/me`, {
+  return _makeRequest(fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     credentials: 'include'
-  })
+  }))
 }
