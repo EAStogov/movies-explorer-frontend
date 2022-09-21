@@ -5,7 +5,6 @@ import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Movies from "../Movies/Movies";
-import { moviesList, savedMoviesList } from "../../constants/moviesList.js";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
@@ -14,6 +13,7 @@ import { useEffect, useState } from "react";
 import * as auth from "../../utils/Auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { getMovies, likeMovie, deleteMovie } from "../../utils/MainApi";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -24,6 +24,7 @@ function App() {
   const [searchKeywords, setSearchKeywords] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
+  const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -33,8 +34,17 @@ function App() {
   useEffect(() => {
       auth.authorizate()
         .then(res => {
-          navigate('/');
           signIn(res.data);
+          getMovies()
+            .then(movies => {
+              if (movies) {
+                localStorage.setItem('savedMovies', JSON.stringify(movies.data));
+                setSavedMoviesList(movies.data);
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            })
         })
         .catch(err => {
           if (err.status === 401) {
@@ -133,6 +143,31 @@ function App() {
       })
   }
 
+  function handleLike(movie) {
+    likeMovie(movie)
+      .then(res => {
+        let array = savedMoviesList;
+        array.push(res.data)
+        setSavedMoviesList(array)
+        localStorage.savedMovies = JSON.stringify(savedMoviesList);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  function handleDislike(movie) {
+    deleteMovie(movie._id ? movie._id : savedMoviesList.find(el => el.movieId === movie.id)._id)
+      .then(res => {
+        const array = savedMoviesList.filter(element => element.movieId !== res.data.movieId);
+        setSavedMoviesList(array);
+        localStorage.savedMovies = JSON.stringify(array);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="page">
       <Header
@@ -168,6 +203,9 @@ function App() {
                   handleSubmitSearch={handleSubmitSearch}
                   handleFilterClick={handleFilterClick}
                   onChangeKeywords={handleChangeKeywords}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  isSavedMovies={false}
                 />
               </ProtectedRoute>
             }
@@ -180,6 +218,9 @@ function App() {
                   moviesList={savedMoviesList}
                   onChangeRoute={handleNavigation}
                   route="/saved-movies"
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  isSavedMovies={true}
                 />
               </ProtectedRoute>
             }

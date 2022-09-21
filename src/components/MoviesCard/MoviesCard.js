@@ -1,10 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// import { likeMovie, deleteMovie } from "../../utils/MainApi";
 import "./MoviesCard.css";
 
-function MoviesCard({ name, duration, image, saved }) {
-  const [isSaved, setIsSaved] = useState(saved);
+function MoviesCard({ name, duration, image, saved, movie, handleLike, handleDislike }) {
+  const [isSaved, setIsSaved] = useState(false);
+
+  const moviesArray = JSON.parse(localStorage.savedMovies);
+
+  useEffect(() => {
+    const savedMovie = moviesArray.find((movieItem) => {
+      return movieItem.movieId === movie.id || movieItem.owner === movie.owner;
+    })
+    if (savedMovie !== undefined) {
+      setIsSaved(true);
+    }
+  }, [])
+
+  
+
   function toggleLike() {
-    setIsSaved(!isSaved);
+    if (!isSaved) {
+      Promise.resolve(handleLike(movie))
+        .then(() => {
+          setIsSaved(!isSaved);
+        })
+    } else {
+      Promise.resolve(handleDislike(movie))
+        .then(res => {
+          setIsSaved(!isSaved);
+        })
+    }
   }
   return (
     <li className="movie-card">
