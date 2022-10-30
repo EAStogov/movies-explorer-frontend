@@ -14,6 +14,8 @@ import * as auth from "../../utils/Auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { getMovies, likeMovie, deleteMovie } from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
+import findAllRightMovies from "../../utils/MoviesFilter";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -21,10 +23,10 @@ function App() {
   const [isFooterShown, setIsFooterShown] = useState(true);
   const [isHeaderAuth, setIsHeaderAuth] = useState(false);
   const [route, setRoute] = useState("");
-  const [searchKeywords, setSearchKeywords] = useState('');
+  const [searchKeywordsAllMovies, setSearchKeywordsAllMovies] = useState('');
+  const [searchKeywordsSavedMovies, setSearchKeywordsSavedMovies] = useState('');
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
-  const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -39,7 +41,8 @@ function App() {
             .then(movies => {
               if (movies) {
                 localStorage.setItem('savedMovies', JSON.stringify(movies.data));
-                setSavedMoviesList(movies.data);
+                localStorage.setItem('/saved-movies', JSON.stringify({movies: movies.data, isShortMovie: false, keywords: ''}));
+                localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
               }
             })
             .catch(err => {
@@ -57,12 +60,38 @@ function App() {
     setIsShortMovie(!isShortMovie);
   }
 
-  function handleChangeKeywords(value) {
-    setSearchKeywords(value);
+  function handleChangeKeywordsAllMovies(value) {
+    setSearchKeywordsAllMovies(value);
   }
 
-  function handleSubmitSearch(list) {
-    setMoviesList(list);
+  function handleChangeKeywordsSavedMovies(value) {
+    setSearchKeywordsSavedMovies(value);
+  }
+
+  async function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
+    moviesApi.getMovies()
+      .then(movies => {
+        const foundMovies = findAllRightMovies(movies, isShortMovie, searchKeywords)
+        localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
+                                                                     movies: foundMovies,
+                                                                     isShortMovie: isShortMovie
+                                                                    }));
+        setMoviesList(foundMovies)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handleSubmitSearchSavedMovies(isShortMovie, searchKeywords) {
+    const movies = JSON.parse(localStorage.savedMovies);
+    const foundMovies = findAllRightMovies(movies, isShortMovie, searchKeywords);
+    setMoviesList(foundMovies);
+    localStorage.setItem('/saved-movies', JSON.stringify({ keywords: searchKeywords,
+      movies: foundMovies,
+      isShortMovie: isShortMovie
+     }))
+    return foundMovies;
   }
 
   function toggleHeader(value) {
@@ -79,6 +108,9 @@ function App() {
 
   function handleNavigation(value) {
     setRoute(value);
+    if (value === '/movies' || value === '/saved-movies') {
+      setMoviesList(JSON.parse(localStorage.getItem(value)).movies)
+    }
   }
 
   function handleChangeName(name) {
@@ -146,10 +178,17 @@ function App() {
   function handleLike(movie) {
     likeMovie(movie)
       .then(res => {
-        let array = savedMoviesList;
-        array.push(res.data)
-        setSavedMoviesList(array)
-        localStorage.savedMovies = JSON.stringify(savedMoviesList);
+        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+        const savedMoviesData = JSON.parse(localStorage.getItem('/saved-movies'));
+        savedMovies.push(res.data)
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        if (savedMoviesData.keywords !== '') {
+          savedMoviesData.movies = findAllRightMovies(savedMovies, savedMoviesData.isShortMovie, savedMoviesData.keywords);
+          localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
+        } else {
+          savedMoviesData.movies = savedMovies;
+          localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
+        }
       })
       .catch(err => {
         console.log(err);
@@ -157,11 +196,25 @@ function App() {
   }
 
   function handleDislike(movie) {
-    deleteMovie(movie._id ? movie._id : savedMoviesList.find(el => el.movieId === movie.id)._id)
+    deleteMovie(movie._id ? movie._id : JSON.parse(localStorage.getItem('/saved-movies')).movies.find(el => el.movieId === movie.id)._id)
       .then(res => {
-        const array = savedMoviesList.filter(element => element.movieId !== res.data.movieId);
-        setSavedMoviesList(array);
-        localStorage.savedMovies = JSON.stringify(array);
+        let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+        const savedMoviesData = JSON.parse(localStorage.getItem('/saved-movies'));
+        savedMovies = savedMovies.filter(element => element.movieId !== res.data.movieId)
+        if (savedMoviesData.keywords !== '') {
+          savedMoviesData.movies = findAllRightMovies(savedMovies, savedMoviesData.isShortMovie, savedMoviesData.keywords);
+          localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
+          if (route === '/saved-movies') {
+            setMoviesList(savedMoviesData.movies);
+          }
+        } else {
+          savedMoviesData.movies = savedMovies;
+          localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
+          if (route === '/saved-movies') {
+            setMoviesList(savedMovies);
+          }
+        }
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch(err => {
         console.log(err);
@@ -195,14 +248,14 @@ function App() {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Movies
-                  moviesList={moviesList}
                   onChangeRoute={handleNavigation}
                   route="/movies"
-                  searchKeywords={searchKeywords}
+                  moviesList={moviesList}
+                  searchKeywords={searchKeywordsAllMovies}
+                  onChangeKeywords={handleChangeKeywordsAllMovies}
                   isShortMovie={isShortMovie}
-                  handleSubmitSearch={handleSubmitSearch}
+                  onSubmit={handleSubmitSearchMovies}
                   handleFilterClick={handleFilterClick}
-                  onChangeKeywords={handleChangeKeywords}
                   handleLike={handleLike}
                   handleDislike={handleDislike}
                   isSavedMovies={false}
@@ -215,8 +268,12 @@ function App() {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Movies
-                  moviesList={savedMoviesList}
+                  moviesList={moviesList}
+                  searchKeywords={searchKeywordsSavedMovies}
+                  onChangeKeywords={handleChangeKeywordsSavedMovies}
                   onChangeRoute={handleNavigation}
+                  onSubmit={handleSubmitSearchSavedMovies}
+                  handleFilterClick={handleFilterClick}
                   route="/saved-movies"
                   handleLike={handleLike}
                   handleDislike={handleDislike}

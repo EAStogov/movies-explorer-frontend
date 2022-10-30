@@ -1,20 +1,12 @@
 import "./SearchForm.css";
 import searchIcon from "../../images/search.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.js";
-import moviesApi from "../../utils/MoviesApi";
-import findAllRightMovies from "../../utils/MoviesFilter";
 
-function SearchForm({ searchKeywords, isShortMovie, onChangeKeywords, handleSubmitSearch, handleFilterClick}) {
+function SearchForm({ searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, onSubmit}) {
 
   function handleSubmitButtonClick(e) {
     e.preventDefault();
-    moviesApi.getMovies()
-      .then(res => {
-        handleSubmitSearch(findAllRightMovies(res, isShortMovie, searchKeywords));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    onSubmit(isShortMovie, searchKeywords);
   }
 
   function handleInputChange(e) {

@@ -3,14 +3,16 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
 
-function Movies({ onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleSubmitSearch, handleFilterClick, route, ...props }) {
+function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, route, onSubmit, ...props }) {
+
   useEffect(() => {
     onChangeRoute(route);
-  })
+  }, [route])
+
   return(
     <>
-      <SearchForm searchKeywords={searchKeywords} isShortMovie={isShortMovie} onChangeKeywords={onChangeKeywords} handleSubmitSearch={handleSubmitSearch} handleFilterClick={handleFilterClick} />
-      <MoviesCardList {...props} />
+      <SearchForm searchKeywords={searchKeywords} isShortMovie={isShortMovie} onChangeKeywords={onChangeKeywords} handleFilterClick={handleFilterClick} onSubmit={onSubmit} />
+      <MoviesCardList moviesList={moviesList} {...props} />
     </>
   );
 }

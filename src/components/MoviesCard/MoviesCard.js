@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-// import { likeMovie, deleteMovie } from "../../utils/MainApi";
 import "./MoviesCard.css";
 
 function MoviesCard({ name, duration, image, saved, movie, handleLike, handleDislike }) {
   const [isSaved, setIsSaved] = useState(false);
 
-  const moviesArray = JSON.parse(localStorage.savedMovies);
+  const moviesArray = JSON.parse(localStorage.getItem('/saved-movies')).movies;
 
   useEffect(() => {
     const savedMovie = moviesArray.find((movieItem) => {
