@@ -37,29 +37,29 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      auth.authorizate()
-        .then(res => {
-          if (!res.ok) {
-            navigate('/');
-            return Promise.reject(res);
-          }
-          return res.json();
-        })
-        .then(res => {
-          if (res) {
+    auth.authorizate()
+      .then(res => {
+        if (!res.ok) {
+          navigate('/');
+          return Promise.reject(res);
+        }
+        return res.json();
+      })
+      .then(res => {
+        if (res) {
+          getMovies()
+          .then(movies => {
             signIn(res.data);
-            getMovies()
-            .then(movies => {
-              if (movies) {
-                localStorage.setItem('savedMovies', JSON.stringify(movies.data));
-                localStorage.setItem('/saved-movies', JSON.stringify({movies: movies.data, isShortMovie: false, keywords: ''}));
-                localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
-              }
-            })
-          }
-        })
-        .catch(err => {
-        })
+            if (movies) {
+              localStorage.setItem('savedMovies', JSON.stringify(movies.data));
+              localStorage.setItem('/saved-movies', JSON.stringify({movies: movies.data, isShortMovie: false, keywords: ''}));
+              localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+            }
+          })
+        }
+      })
+      .catch(err => {
+      })
     }, []);
 
   function handleFilterClick(route) {
