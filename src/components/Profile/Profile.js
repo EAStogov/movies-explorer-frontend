@@ -16,9 +16,9 @@ function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSu
   function handleChangeInput(e) {
     e.preventDefault();
     handleChange(e);
-    if (currentUser.name === values.name && currentUser.email === values.email) {
-      setIsValid(false);
-    }
+    // if (currentUser.name === values.name && currentUser.email === values.email) {
+    //   setIsValid(false);
+    // }
   }
 
   function handleSubmit(e) {

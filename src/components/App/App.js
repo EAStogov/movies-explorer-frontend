@@ -16,6 +16,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { getMovies, likeMovie, deleteMovie, editProfile } from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
 import findAllRightMovies from "../../utils/MoviesFilter";
+import InfoTooltip from "../InfoToolTip/InfoToolTip";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -30,14 +31,24 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRequestLoading, setIsRequestLoading] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [errorText, setErrorText] = useState('При авторизации произошла ошибка. Токен не передан или передан не в том формате.');
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
       auth.authorizate()
         .then(res => {
-          signIn(res.data);
-          getMovies()
+          if (!res.ok) {
+            navigate('/');
+            return Promise.reject(res);
+          }
+          return res.json();
+        })
+        .then(res => {
+          if (res) {
+            signIn(res.data);
+            getMovies()
             .then(movies => {
               if (movies) {
                 localStorage.setItem('savedMovies', JSON.stringify(movies.data));
@@ -45,14 +56,9 @@ function App() {
                 localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
               }
             })
-            .catch(err => {
-              console.log(err);
-            })
+          }
         })
         .catch(err => {
-          if (err.status === 401) {
-            navigate('/');
-          }
         })
     }, []);
 
@@ -61,8 +67,6 @@ function App() {
     localStorage.setItem(route, JSON.stringify({keywords: data.keywords,
       movies: data.movies,
       isShortMovie: !isShortMovie}))
-    // data.isShortMovie = !isShortMovie;
-    // JSON.parse(localStorage.getItem(route)).isShortMovie = !isShortMovie;
     setIsShortMovie(!isShortMovie);
   }
 
@@ -131,11 +135,15 @@ function App() {
             navigate('/movies');
           })
           .catch(err => {
-            console.log(err);
+            openPopup('При регистрации пользователя произошла ошибка.')
           })
       })
       .catch(err => {
-        console.log(err);
+        if (err.status === 409) {
+          openPopup('Пользователь с таким email уже существует.')
+        } else {
+          openPopup('При регистрации пользователя произошла ошибка.')
+        }
       })
   }
 
@@ -146,7 +154,12 @@ function App() {
         navigate('/movies');
       })
       .catch(err => {
-        console.log(err);
+        console.log(err)
+        if (err.status === 400) {
+          openPopup('Вы ввели неправильный логин или пароль. ')
+        } else {
+          openPopup(' При авторизации произошла ошибка. Токен не передан или передан не в том формате.')
+        }
       })
   }
 
@@ -218,8 +231,21 @@ function App() {
         setCurrentUser(res.data);
       })
       .catch(err => {
-        console.log(err);
+        if (err.status === 409) {
+          openPopup('Пользователь с таким email уже существует.')
+        } else {
+          openPopup('При обновлении профиля произошла ошибка.')
+        }
       })
+  }
+
+  function openPopup(errorText) {
+    setErrorText(errorText);
+    setIsPopupOpened(true);
+  }
+
+  function closePopup() {
+    setIsPopupOpened(false);
   }
 
   return (
@@ -325,6 +351,7 @@ function App() {
       </CurrentUserContext.Provider>
       </main>
       <Footer isFooterShown={isFooterShown} />
+      <InfoTooltip errorText={errorText} isOpen={isPopupOpened} onClose={closePopup} />
     </div>
   );
 }
