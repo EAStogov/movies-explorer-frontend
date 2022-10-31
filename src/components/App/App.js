@@ -28,6 +28,8 @@ function App() {
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRequestLoading, setIsRequestLoading] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,6 +69,7 @@ function App() {
   }
 
   async function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
+    setIsRequestLoading(true)
     moviesApi.getMovies()
       .then(movies => {
         const foundMovies = findAllRightMovies(movies, isShortMovie, searchKeywords)
@@ -74,6 +77,8 @@ function App() {
                                                                      movies: foundMovies,
                                                                      isShortMovie: isShortMovie
                                                                     }));
+        setIsRequestLoading(false);
+        setIsNotFound(foundMovies.length === 0)
         setMoviesList(foundMovies)
       })
       .catch((err) => {
@@ -248,6 +253,8 @@ function App() {
                   handleLike={handleLike}
                   handleDislike={handleDislike}
                   isSavedMovies={false}
+                  isRequestLoading={isRequestLoading}
+                  isNotFound={isNotFound}
                 />
               </ProtectedRoute>
             }

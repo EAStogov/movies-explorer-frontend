@@ -1,0 +1,30 @@
+.movies__message-not-found {
+  margin: 0 0 70px;
+  font-size: 50px;
+  text-align: center;
+  color: #C2C2C2
+}
+
+@media screen and (max-width: 850px) {
+  .movies__message-not-found {
+    margin-bottom: 109px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .movies__message-not-found {
+    margin-bottom: 65px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .movies__message-not-found {
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movies__message-not-found {
+    font-size: 25px;
+  }
+}
