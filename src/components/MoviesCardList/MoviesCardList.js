@@ -3,7 +3,7 @@ import {  useEffect, useState } from "react";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike }) {
+function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike, route }) {
   const [moviesBlock, setMoviesBlock] = useState([]);
   const [windowWidth, setWindowWidth] = useState(undefined);
 
@@ -45,6 +45,7 @@ function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike }
               movie={movie}
               handleLike={handleLike}
               handleDislike={handleDislike}
+              route={route}
             />
           );
         })}

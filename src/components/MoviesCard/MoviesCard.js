@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./MoviesCard.css";
 
-function MoviesCard({ name, duration, image, saved, movie, handleLike, handleDislike }) {
+function MoviesCard({ name, duration, image, route, movie, handleLike, handleDislike }) {
   const [isSaved, setIsSaved] = useState(false);
 
   const moviesArray = JSON.parse(localStorage.getItem('/saved-movies')).movies;
@@ -38,7 +38,7 @@ function MoviesCard({ name, duration, image, saved, movie, handleLike, handleDis
           <button
             type="button"
             className={`page__button movie-card__like ${isSaved && "movie-card__like_active"} ${
-              window.location.href === "http://localhost:3000/saved-movies" && "movie-card__remove"
+              route === "/saved-movies" && "movie-card__remove"
             }`}
             onClick={toggleLike}
           ></button>

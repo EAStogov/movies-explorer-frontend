@@ -17,7 +17,7 @@ function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onCha
         ? <Preloader />
         : isNotFound 
           ? <p className="movies__message-not-found">Ничего не найдено</p>
-          : <MoviesCardList moviesList={moviesList} {...props} />}
+          : <MoviesCardList moviesList={moviesList} route={route} {...props} />}
     </>
   );
 }
