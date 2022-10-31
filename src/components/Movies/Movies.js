@@ -12,7 +12,7 @@ function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onCha
 
   return(
     <>
-      <SearchForm searchKeywords={searchKeywords} isShortMovie={isShortMovie} onChangeKeywords={onChangeKeywords} handleFilterClick={handleFilterClick} onSubmit={onSubmit} />
+      <SearchForm route={route} searchKeywords={searchKeywords} isShortMovie={isShortMovie} onChangeKeywords={onChangeKeywords} handleFilterClick={handleFilterClick} onSubmit={onSubmit} />
       {isRequestLoading 
         ? <Preloader />
         : isNotFound 

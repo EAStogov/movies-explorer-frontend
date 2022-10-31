@@ -56,7 +56,13 @@ function App() {
         })
     }, []);
 
-  function handleFilterClick() {
+  function handleFilterClick(route) {
+    const data = JSON.parse(localStorage.getItem(route));
+    localStorage.setItem(route, JSON.stringify({keywords: data.keywords,
+      movies: data.movies,
+      isShortMovie: !isShortMovie}))
+    // data.isShortMovie = !isShortMovie;
+    // JSON.parse(localStorage.getItem(route)).isShortMovie = !isShortMovie;
     setIsShortMovie(!isShortMovie);
   }
 
@@ -112,7 +118,8 @@ function App() {
   function handleNavigation(value) {
     setRoute(value);
     if (value === '/movies' || value === '/saved-movies') {
-      setMoviesList(JSON.parse(localStorage.getItem(value)).movies)
+      setMoviesList(JSON.parse(localStorage.getItem(value)).movies);
+      setIsShortMovie(JSON.parse(localStorage.getItem(value)).isShortMovie);
     }
   }
 
@@ -269,6 +276,7 @@ function App() {
                   onChangeKeywords={handleChangeKeywordsSavedMovies}
                   onChangeRoute={handleNavigation}
                   onSubmit={handleSubmitSearchSavedMovies}
+                  isShortMovie={isShortMovie}
                   handleFilterClick={handleFilterClick}
                   route="/saved-movies"
                   handleLike={handleLike}

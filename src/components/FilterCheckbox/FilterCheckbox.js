@@ -1,13 +1,17 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({ isShortMovie, onClick }) {
+function FilterCheckbox({ isShortMovie, onClick, route }) {
   
+  function handleClick() {
+    onClick(route);
+  }
+
   return (
     <div className="filter">
       <button
         type="button"
         className={`filter__checkbox ${isShortMovie && "filter__checkbox_active"}`}
-        onClick={onClick}
+        onClick={handleClick}
       >
         <div
           className={`filter__checkbox-circle ${isShortMovie && "filter__checkbox-circle_active"}`}
