@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import * as auth from "../../utils/Auth";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { getMovies, likeMovie, deleteMovie } from "../../utils/MainApi";
+import { getMovies, likeMovie, deleteMovie, editProfile } from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
 import findAllRightMovies from "../../utils/MoviesFilter";
 
@@ -28,8 +28,6 @@ function App() {
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -113,33 +111,16 @@ function App() {
     }
   }
 
-  function handleChangeName(name) {
-    setUserName(name);
-  }
-
-  function handleChangeEmail(email) {
-    setUserEmail(email);
-  }
-
   function handleRegisterSubmit(name, email, password) {
     auth.register(name, email, password)
       .then(res => {
-        if (res.ok) {
-          auth.login(email, password)
-            .then(result => {
-              if (result.ok) {
-                navigate('/movies');
-                return result.json();
-              } else {
-                return Promise.reject(res);
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            })
-        } else {
-          return Promise.reject(res);
-        }
+        auth.login(email, password)
+          .then(result => {
+            navigate('/movies');
+          })
+          .catch(err => {
+            console.log(err);
+          })
       })
       .catch(err => {
         console.log(err);
@@ -159,8 +140,6 @@ function App() {
 
   function signIn(user) {
     setCurrentUser(user);
-    setUserName(user.name);
-    setUserEmail(user.email);
     setIsLoggedIn(true);
     navigate('/movies');
   }
@@ -219,6 +198,16 @@ function App() {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  function handleSubmitEditProfile(name, email) {
+    editProfile(name, email)
+      .then(res => {
+        setCurrentUser(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   return (
@@ -287,10 +276,7 @@ function App() {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Profile
-                  name={userName}
-                  email={userEmail}
-                  onChangeName={handleChangeName}
-                  onChangeEmail={handleChangeEmail}
+                  onSubmit={handleSubmitEditProfile}
                   toggleFooter={toggleFooter}
                   onChangeRoute={handleNavigation}
                   route="/profile"

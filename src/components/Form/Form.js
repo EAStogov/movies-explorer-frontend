@@ -1,12 +1,12 @@
 import "./Form.css";
 import { NavLink } from "react-router-dom";
 
-function Form({ title, submitText, navLinkText, navLinkButtonText, children, isForEdit, route, onSubmit, onClickLogoutButton }) {
+function Form({ title, submitText, navLinkText, navLinkButtonText, children, isForEdit, route, onSubmit, onClickLogoutButton, isValid }) {
   return (
     <form className="form" onSubmit={onSubmit}>
       <h2 className={`form__title ${isForEdit && "form__title_type_edit"}`}>{title}</h2>
       {children}
-      <button className={`page__button form__submit ${isForEdit && "form__submit_type_edit"}`} type="submit">
+      <button className={`page__button form__submit ${isForEdit && "form__submit_type_edit"} ${!isValid && "form__submit_disabled"}`} disabled={!isValid} type="submit">
         {submitText}
       </button>
       <div className="form__navLink-container">
