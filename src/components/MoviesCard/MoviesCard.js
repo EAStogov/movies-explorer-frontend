@@ -4,11 +4,11 @@ import "./MoviesCard.css";
 function MoviesCard({ name, duration, image, route, movie, handleLike, handleDislike }) {
   const [isSaved, setIsSaved] = useState(false);
 
-  const moviesArray = JSON.parse(localStorage.getItem('/saved-movies')).movies;
+  const moviesArray = JSON.parse(localStorage.getItem('savedMovies'));
 
   useEffect(() => {
     const savedMovie = moviesArray.find((movieItem) => {
-      return movieItem.movieId === movie.id || movieItem.owner === movie.owner;
+      return movieItem.movieId === movie.id;
     })
     if (savedMovie !== undefined) {
       setIsSaved(true);

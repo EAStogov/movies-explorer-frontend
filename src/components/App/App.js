@@ -17,6 +17,7 @@ import { getMovies, likeMovie, deleteMovie, editProfile } from "../../utils/Main
 import moviesApi from "../../utils/MoviesApi";
 import findAllRightMovies from "../../utils/MoviesFilter";
 import InfoTooltip from "../InfoToolTip/InfoToolTip";
+import { BASE_URL } from "../../constants/config";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -197,21 +198,46 @@ function App() {
   function handleLike(movie) {
     likeMovie(movie)
       .then(res => {
-        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-        const savedMoviesData = JSON.parse(localStorage.getItem('/saved-movies'));
-        savedMovies.push(res.data)
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        if (savedMoviesData.keywords !== '') {
-          savedMoviesData.movies = findAllRightMovies(savedMovies, savedMoviesData.isShortMovie, savedMoviesData.keywords);
-          localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
-        } else {
-          savedMoviesData.movies = savedMovies;
-          localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
-        }
+        saveMovie(res.data);
       })
       .catch(err => {
+        if (err.status === 401) {
+          unSign();
+          setMoviesList([]);
+          setIsShortMovie(false);
+          setSearchKeywordsSavedMovies('');
+          setSearchKeywordsAllMovies('');
+          openPopup('При авторизации произошла ошибка. Переданный токен некорректен.');
+
+        } else if (err.status === 500) {
+          saveMovie(convertMovie(movie));
+        }
         console.log(err);
       })
+  }
+
+  function saveMovie(movie) {
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    const savedMoviesData = JSON.parse(localStorage.getItem('/saved-movies'));
+    
+    savedMovies.push(movie);
+
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+
+    if (savedMoviesData.keywords !== '') {
+      savedMoviesData.movies = findAllRightMovies(savedMovies, savedMoviesData.isShortMovie, savedMoviesData.keywords);
+      localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
+    } else {
+      savedMoviesData.movies = savedMovies;
+      localStorage.setItem('/saved-movies', JSON.stringify(savedMoviesData));
+    }
+  }
+
+  function convertMovie(movie) {
+    movie.movieId = movie.id;
+    movie.image = BASE_URL + movie.image.url;
+
+    return movie;
   }
 
   function handleDislike(movie) {
