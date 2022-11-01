@@ -84,21 +84,13 @@ function App() {
   }
 
   async function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
-    setIsRequestLoading(true)
-    moviesApi.getMovies()
-      .then(movies => {
-        const foundMovies = findAllRightMovies(movies, isShortMovie, searchKeywords)
-        localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
-                                                                     movies: foundMovies,
-                                                                     isShortMovie: isShortMovie
-                                                                    }));
-        setIsRequestLoading(false);
-        setIsNotFound(foundMovies.length === 0)
-        setMoviesList(foundMovies)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    const foundMovies = findAllRightMovies(JSON.parse(localStorage.getItem('moviesList')), isShortMovie, searchKeywords);
+    setIsNotFound(foundMovies.length === 0);
+    setMoviesList(foundMovies);
+    localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
+                                                                 movies: foundMovies,
+                                                                 isShortMovie: isShortMovie
+                                                                }));
   }
 
   function handleSubmitSearchSavedMovies(isShortMovie, searchKeywords) {
