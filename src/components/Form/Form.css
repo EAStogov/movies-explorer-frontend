@@ -82,6 +82,10 @@
   cursor: inherit;
 }
 
+.form__submit_disabled:hover {
+  opacity: 1;
+}
+
 @media screen and (max-width: 470px) {
   .form__submit {
     margin: 220px 0 14px;
