@@ -238,6 +238,7 @@ function App() {
     editProfile(name, email)
       .then(res => {
         setCurrentUser(res.data);
+        openPopup('Данные успешно изменены')
       })
       .catch(err => {
         if (err.status === 409) {
