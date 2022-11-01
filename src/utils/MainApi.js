@@ -1,3 +1,5 @@
+import { BITMOVIES_URL } from "../constants/config";
+
 export const baseUrl = 'https://api.esto.movie.nomoredomains.xyz';
 
 function _makeRequest(promise) {
@@ -45,9 +47,9 @@ export function likeMovie(movie) {
       duration: movie.duration,
       year: movie.year,
       description: movie.description,
-      image: `https://api.nomoreparties.co${movie.image.url}`,
+      image: `${BITMOVIES_URL}${movie.image.url}`,
       trailerLink: movie.trailerLink,
-      thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+      thumbnail: `${BITMOVIES_URL}${movie.image.formats.thumbnail.url}`,
       movieId: movie.id,
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,

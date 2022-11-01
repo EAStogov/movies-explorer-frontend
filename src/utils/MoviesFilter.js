@@ -1,9 +1,11 @@
+import { DURATION } from "../constants/config";
+
 function _findAllShortMovies(list) {
-  return list.filter((item) => item.duration <= 40);
+  return list.filter((item) => item.duration <= DURATION);
 }
 
 function _findAllLongMovies(list) {
-  return list.filter((item) => item.duration > 40);
+  return list.filter((item) => item.duration > DURATION);
 }
 
 function _filterByShortMoviesCheckbox(list, isShort) {

@@ -17,7 +17,7 @@ import { getMovies, likeMovie, deleteMovie, editProfile } from "../../utils/Main
 import moviesApi from "../../utils/MoviesApi";
 import findAllRightMovies from "../../utils/MoviesFilter";
 import InfoTooltip from "../InfoToolTip/InfoToolTip";
-import { BASE_URL } from "../../constants/config";
+import { BITMOVIES_URL } from "../../constants/config";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -254,7 +254,7 @@ function App() {
 
   function convertMovie(movie) {
     movie.movieId = movie.id;
-    movie.image = BASE_URL + movie.image.url;
+    movie.image = BITMOVIES_URL + movie.image.url;
 
     return movie;
   }

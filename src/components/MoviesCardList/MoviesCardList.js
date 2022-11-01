@@ -2,13 +2,14 @@ import "./MoviesCardList.css";
 import {  useEffect, useState } from "react";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { COUNT_OF_CARDS_NARROW_WINDOW, COUNT_OF_CARDS_WIDE_WINDOW, WINDOW_WIDTH } from "../../constants/config";
 
 function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike, route }) {
   const [moviesBlock, setMoviesBlock] = useState([]);
   const [windowWidth, setWindowWidth] = useState(undefined);
 
   function handleButtonClick() {
-    setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
+    setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > WINDOW_WIDTH ? COUNT_OF_CARDS_WIDE_WINDOW : COUNT_OF_CARDS_NARROW_WINDOW)));
   }
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike, 
     } else {
       moviesBlock.length = 0;
       if (moviesList) {
-        setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
+        setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > WINDOW_WIDTH ? COUNT_OF_CARDS_WIDE_WINDOW : COUNT_OF_CARDS_NARROW_WINDOW)));
       }
     }
   }, [moviesList]);
