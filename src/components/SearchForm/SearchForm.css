@@ -78,6 +78,10 @@
   }
 }
 
+.search__input_invalid::placeholder {
+  color: #EE3465
+}
+
 .search__submit-button {
   margin-left: auto;
   margin-right: 19px;
