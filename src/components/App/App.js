@@ -172,9 +172,12 @@ function App() {
 
   function unSign() {
     auth.signout()
-    .then(res => {
-    setIsLoggedIn(false);
-    })
+      .then(res => {
+        setIsLoggedIn(false);
+        localStorage.setItem('savedMovies', JSON.stringify([]));
+        localStorage.setItem('/saved-movies', JSON.stringify({}));
+        localStorage.setItem('/movies', JSON.stringify({}))
+      })
       .catch(err => {
         console.log(err);
       })
