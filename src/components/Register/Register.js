@@ -3,7 +3,7 @@ import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import Form from "../Form/Form";
 import "./Register.css";
 
-function Register({ toggleFooter, onChangeRoute, route, onSubmit }) {
+function Register({ toggleFooter, onChangeRoute, route, onSubmit, isInputDisabled }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
   useEffect(() => {
@@ -38,6 +38,7 @@ function Register({ toggleFooter, onChangeRoute, route, onSubmit }) {
             pattern="[a-zA-ZА-Яа-яёЁ\s_-]+$" 
             required
             onChange={handleChange} 
+            disabled={isInputDisabled}
           />
         </div>
         <span className={`form__error ${errors.name !== '' && 'form__error_active'}`}>{errors.name}</span>
@@ -49,7 +50,9 @@ function Register({ toggleFooter, onChangeRoute, route, onSubmit }) {
             name="email"
             pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             required
-            onChange={handleChange} />
+            onChange={handleChange}
+            disabled={isInputDisabled}
+          />
         </div>
         <span className={`form__error ${errors.email !== '' && 'form__error_active'}`}>{errors.email}</span>
         <div className="form__input-container">
@@ -61,6 +64,7 @@ function Register({ toggleFooter, onChangeRoute, route, onSubmit }) {
             name="password"
             required
             onChange={handleChange}
+            disabled={isInputDisabled}
           />
         </div>
         <span className={`form__error ${errors.password !== '' && 'form__error_active'}`}>{errors.password}</span>

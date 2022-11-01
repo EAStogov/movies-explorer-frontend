@@ -34,6 +34,7 @@ function App() {
   const [isNotFound, setIsNotFound] = useState(false);
   const [errorText, setErrorText] = useState('При авторизации произошла ошибка. Токен не передан или передан не в том формате.');
   const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
 
   const navigate = useNavigate();
 
@@ -152,15 +153,18 @@ function App() {
   }
 
   function handleRegisterSubmit(name, email, password) {
+    setIsInputDisabled(true);
     auth.register(name, email, password)
       .then(res => {
         auth.login(email, password)
           .then(result => {
+            setIsInputDisabled(false);
             setIsLoggedIn(true);
             navigate('/movies');
           })
           .catch(err => {
-            openPopup('При регистрации пользователя произошла ошибка.')
+            openPopup('При регистрации пользователя произошла ошибка.');
+            setIsInputDisabled(false);
           })
       })
       .catch(err => {
@@ -173,13 +177,15 @@ function App() {
   }
 
   function handleLoginSubmit(email, password) {
+    setIsInputDisabled(true);
     auth.login(email, password)
       .then(res => {
+        setIsInputDisabled(false);
         setIsLoggedIn(true);
         navigate('/movies');
       })
       .catch(err => {
-        console.log(err)
+        setIsInputDisabled(false);
         if (err.status === 400) {
           openPopup('Вы ввели неправильный логин или пароль. ')
         } else {
@@ -213,6 +219,7 @@ function App() {
         saveMovie(res.data);
       })
       .catch(err => {
+        console.log(err)
         if (err.status === 401) {
           unSign();
           setMoviesList([]);
@@ -279,12 +286,15 @@ function App() {
   }
 
   function handleSubmitEditProfile(name, email) {
+    setIsInputDisabled(true);
     editProfile(name, email)
       .then(res => {
+        setIsInputDisabled(false);
         setCurrentUser(res.data);
         openPopup('Данные успешно изменены')
       })
       .catch(err => {
+        setIsInputDisabled(false);
         if (err.status === 409) {
           openPopup('Пользователь с таким email уже существует.')
         } else {
@@ -376,6 +386,7 @@ function App() {
                   onChangeRoute={handleNavigation}
                   route="/profile"
                   onClickLogoutButton={unSign}
+                  isInputDisabled={isInputDisabled}
                 />
               </ProtectedRoute>
             }
@@ -388,13 +399,14 @@ function App() {
                 onChangeRoute={handleNavigation}
                 route="/signup"
                 onSubmit={handleRegisterSubmit}
+                isInputDisabled={isInputDisabled}
               />
             }
           />
           <Route
             path="/signin"
             element={
-              <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" onSubmit={handleLoginSubmit} />
+              <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" onSubmit={handleLoginSubmit} isInputDisabled={isInputDisabled}/>
             }
           />
           <Route

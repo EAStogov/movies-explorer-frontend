@@ -4,7 +4,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Form from "../Form/Form";
 import "./Profile.css";
 
-function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSubmit }) {
+function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSubmit, isInputDisabled }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setIsValid } = useFormWithValidation({name: currentUser.name, email: currentUser.email});
 
@@ -53,6 +53,7 @@ function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSu
             required
             value={values.name}
             onChange={handleChangeInput}
+            disabled={isInputDisabled}
           />
         </div>
         <span className={`form__error form__error_type_profile ${errors.email !== '' && 'form__error_active'}`}>{errors.name}</span>
@@ -66,6 +67,7 @@ function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSu
             required
             value={values.email}
             onChange={handleChangeInput}
+            disabled={isInputDisabled}
           />
         </div>
         <span className={`form__error form__error_type_profile ${errors.email !== '' && 'form__error_active'}`}>{errors.email}</span>

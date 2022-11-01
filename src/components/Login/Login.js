@@ -3,7 +3,7 @@ import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import Form from "../Form/Form";
 import "./Login.css";
 
-function Login({ toggleFooter, onChangeRoute, route, onSubmit }) {
+function Login({ toggleFooter, onChangeRoute, route, onSubmit, isInputDisabled }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
   useEffect(() => {
@@ -34,7 +34,9 @@ function Login({ toggleFooter, onChangeRoute, route, onSubmit }) {
             name="email"
             pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             required
-            onChange={handleChange} />
+            onChange={handleChange} 
+            disabled={isInputDisabled}
+          />
         </div>
         <span className={`form__error ${errors.email !== '' && 'form__error_active'}`}>{errors.email}</span>
         <div className="form__input-container">
@@ -46,6 +48,7 @@ function Login({ toggleFooter, onChangeRoute, route, onSubmit }) {
             name="password"
             required
             onChange={handleChange}
+            disabled={isInputDisabled}
           />
         </div>
         <span className={`form__error ${errors.password !== '' && 'form__error_active'}`}>{errors.password}</span>
