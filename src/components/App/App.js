@@ -132,6 +132,7 @@ function App() {
       .then(res => {
         auth.login(email, password)
           .then(result => {
+            setIsLoggedIn(true);
             navigate('/movies');
           })
           .catch(err => {
