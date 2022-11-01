@@ -12,6 +12,12 @@ function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSu
     toggleFooter(false);
     onChangeRoute(route);
   }, []);
+  
+  useEffect(() => {
+    if (values.name === currentUser.name && values.email === currentUser.email) {
+      setIsValid(false);
+    }
+  }, [values]);
 
   function handleChangeInput(e) {
     e.preventDefault();
