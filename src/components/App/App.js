@@ -47,13 +47,18 @@ function App() {
       })
       .then(res => {
         if (res) {
-          getMovies()
-          .then(movies => {
-            signIn(res.data);
-            if (movies) {
-              localStorage.setItem('savedMovies', JSON.stringify(movies.data));
-              localStorage.setItem('/saved-movies', JSON.stringify({movies: movies.data, isShortMovie: false, keywords: ''}));
-              localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+          moviesApi.getMovies()
+            .then(movies => {
+              signIn(res.data);
+              if (movies) {
+                localStorage.setItem('moviesList', JSON.stringify(movies));
+                setSearchKeywordsAllMovies(JSON.parse(localStorage.getItem('/movies')).keywords);
+
+                getMovies()
+                  .then(savedMovies => {
+                    localStorage.setItem('savedMovies', JSON.stringify(savedMovies.data));
+                    localStorage.setItem('/saved-movies', JSON.stringify({ movies: savedMovies.data, isShortMovie: false, keywords: '' }));
+                  })
             }
           })
         }
