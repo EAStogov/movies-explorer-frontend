@@ -69,9 +69,23 @@ function App() {
 
   function handleFilterClick(route) {
     const data = JSON.parse(localStorage.getItem(route));
+
     localStorage.setItem(route, JSON.stringify({keywords: data.keywords,
       movies: data.movies,
       isShortMovie: !isShortMovie}))
+
+      if (route === '/movies') {
+        const movies = JSON.parse(localStorage.getItem('moviesList'));
+        if (movies !== 0) {
+          setMoviesList(findAllRightMovies(movies, !isShortMovie, data.keywords));
+        }
+      } else {
+        const movies = JSON.parse(localStorage.getItem('savedMovies'));
+        if (movies.length !== 0) {
+          setMoviesList(findAllRightMovies(movies, !isShortMovie, data.keywords));
+        }
+      }
+
     setIsShortMovie(!isShortMovie);
   }
 
