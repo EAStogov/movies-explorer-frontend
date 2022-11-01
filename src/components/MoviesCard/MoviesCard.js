@@ -8,7 +8,7 @@ function MoviesCard({ name, duration, image, route, movie, handleLike, handleDis
 
   useEffect(() => {
     const savedMovie = moviesArray.find((movieItem) => {
-      return movieItem.movieId === movie.id;
+      return movieItem.movieId === movie.id || movieItem.owner === movie.owner;
     })
     if (savedMovie !== undefined) {
       setIsSaved(true);

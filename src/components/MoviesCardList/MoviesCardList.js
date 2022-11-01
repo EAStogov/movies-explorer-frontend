@@ -28,7 +28,9 @@ function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike, 
       setMoviesBlock(moviesList.slice(0, moviesList.length));
     } else {
       moviesBlock.length = 0;
-      setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
+      if (moviesList) {
+        setMoviesBlock(moviesList.slice(0, moviesBlock.length + (windowWidth > 500 ? 7 : 5)));
+      }
     }
   }, [moviesList]);
 
@@ -53,7 +55,7 @@ function MoviesCardList({ moviesList, isSavedMovies, handleLike, handleDislike, 
       <button
         type="button"
         className={`page__button movies__more ${
-          (isSavedMovies || moviesBlock.length === 0 || moviesBlock.length === moviesList.length) &&
+          (!moviesList || isSavedMovies || moviesBlock.length === 0 || moviesBlock.length === moviesList.length) &&
           "movies__more_hidden"
         }`}
         onClick={handleButtonClick}

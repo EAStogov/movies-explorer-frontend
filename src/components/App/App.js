@@ -38,6 +38,18 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!localStorage.getItem('moviesList')) {
+      localStorage.setItem('moviesList', JSON.stringify([]))
+    }
+    if (!localStorage.getItem('savedMovies')) {
+      localStorage.setItem('savedMovies', JSON.stringify([]))
+    }
+    if (!localStorage.getItem('/movies')) {
+      localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+    }
+    if (!localStorage.getItem('/saved-movies')) {
+      localStorage.setItem('savedMovies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+    }
     auth.authorizate()
       .then(res => {
         if (!res.ok) {
