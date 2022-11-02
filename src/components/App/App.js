@@ -31,7 +31,6 @@ function App() {
   const [moviesList, setMoviesList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRequestLoading, setIsRequestLoading] = useState(false);
-  const [isNotFound, setIsNotFound] = useState(false);
   const [errorText, setErrorText] = useState('При авторизации произошла ошибка. Токен не передан или передан не в том формате.');
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isInputDisabled, setIsInputDisabled] = useState(false);
@@ -114,7 +113,6 @@ function App() {
   async function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
     setIsRequestLoading(true)
     const foundMovies = findAllRightMovies(JSON.parse(localStorage.getItem('moviesList')), isShortMovie, searchKeywords);
-    setIsNotFound(foundMovies.length === 0);
     setMoviesList(foundMovies);
     localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
                                                                  movies: foundMovies,
@@ -355,7 +353,6 @@ function App() {
                   handleDislike={handleDislike}
                   isSavedMovies={false}
                   isRequestLoading={isRequestLoading}
-                  isNotFound={isNotFound}
                 />
               </ProtectedRoute>
             }

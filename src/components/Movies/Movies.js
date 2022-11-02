@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
 
-function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, route, onSubmit, isRequestLoading, isNotFound, ...props }) {
+function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, route, onSubmit, isRequestLoading, ...props }) {
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     onChangeRoute(route);
   }, [route])
+
+  useEffect(() => {
+    setIsNotFound(moviesList.length === 0);
+  }, [moviesList])
 
   return(
     <>
