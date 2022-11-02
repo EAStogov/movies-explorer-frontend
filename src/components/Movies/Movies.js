@@ -12,7 +12,7 @@ function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onCha
   }, [route])
 
   useEffect(() => {
-    setIsNotFound(moviesList.length === 0);
+    setIsNotFound(moviesList === []);
   }, [moviesList])
 
   return(

@@ -60,23 +60,17 @@ function App() {
       })
       .then(res => {
         if (res) {
-          moviesApi.getMovies()
-            .then(movies => {
+          getMovies()
+            .then(savedMovies => {
+              localStorage.setItem('savedMovies', JSON.stringify(savedMovies.data));
+              localStorage.setItem('/saved-movies', JSON.stringify({ movies: savedMovies.data, isShortMovie: false, keywords: '' }));
+              setSearchKeywordsAllMovies(JSON.parse(localStorage.getItem('/movies')).keywords);
               signIn(res.data);
-              if (movies) {
-                localStorage.setItem('moviesList', JSON.stringify(movies));
-                setSearchKeywordsAllMovies(JSON.parse(localStorage.getItem('/movies')).keywords);
-
-                getMovies()
-                  .then(savedMovies => {
-                    localStorage.setItem('savedMovies', JSON.stringify(savedMovies.data));
-                    localStorage.setItem('/saved-movies', JSON.stringify({ movies: savedMovies.data, isShortMovie: false, keywords: '' }));
-                  })
-            }
-          })
+            })
         }
       })
       .catch(err => {
+        console.log(err)
       })
     }, []);
 
@@ -110,14 +104,33 @@ function App() {
     setSearchKeywordsSavedMovies(value);
   }
 
-  async function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
-    setIsRequestLoading(true)
-    const foundMovies = findAllRightMovies(JSON.parse(localStorage.getItem('moviesList')), isShortMovie, searchKeywords);
-    setMoviesList(foundMovies);
-    localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
-                                                                 movies: foundMovies,
-                                                                 isShortMovie: isShortMovie
-                                                                }));
+  function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
+    setIsRequestLoading(true);
+
+    if (JSON.parse(localStorage.getItem('moviesList')).length === 0) {
+      moviesApi.getMovies()
+        .then(movies => {
+          if (movies) {
+            localStorage.setItem('moviesList', JSON.stringify(movies));
+            const foundMovies = findAllRightMovies(movies, isShortMovie, searchKeywords);
+            setMoviesList(foundMovies);
+            localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
+                                                                        movies: foundMovies,
+                                                                        isShortMovie: isShortMovie
+                                                                        }));
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      const foundMovies = findAllRightMovies(JSON.parse(localStorage.getItem('moviesList')), isShortMovie, searchKeywords);
+      setMoviesList(foundMovies);
+      localStorage.setItem('/movies', JSON.stringify({ keywords: searchKeywords,
+                                                                  movies: foundMovies,
+                                                                  isShortMovie: isShortMovie
+                                                                  }));
+    }
     setIsRequestLoading(false)
   }
 
