@@ -112,6 +112,7 @@ function App() {
   }
 
   async function handleSubmitSearchMovies(isShortMovie, searchKeywords) {
+    setIsRequestLoading(true)
     const foundMovies = findAllRightMovies(JSON.parse(localStorage.getItem('moviesList')), isShortMovie, searchKeywords);
     setIsNotFound(foundMovies.length === 0);
     setMoviesList(foundMovies);
@@ -119,9 +120,11 @@ function App() {
                                                                  movies: foundMovies,
                                                                  isShortMovie: isShortMovie
                                                                 }));
+    setIsRequestLoading(false)
   }
 
   function handleSubmitSearchSavedMovies(isShortMovie, searchKeywords) {
+    setIsRequestLoading(true)
     const movies = JSON.parse(localStorage.savedMovies);
     const foundMovies = findAllRightMovies(movies, isShortMovie, searchKeywords);
     setMoviesList(foundMovies);
@@ -129,6 +132,7 @@ function App() {
       movies: foundMovies,
       isShortMovie: isShortMovie
      }))
+     setIsRequestLoading(false)
     return foundMovies;
   }
 
