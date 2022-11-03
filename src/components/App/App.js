@@ -175,6 +175,7 @@ function App() {
       .then(res => {
         auth.login(email, password)
           .then(result => {
+            setCurrentUser(res);
             setIsInputDisabled(false);
             setIsLoggedIn(true);
             navigate('/movies');
