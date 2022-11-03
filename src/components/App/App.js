@@ -255,19 +255,22 @@ function App() {
         saveMovie(res.data);
       })
       .catch(err => {
-        console.log(err)
         if (err.status === 401) {
-          unSign();
+          openPopup('При авторизации произошла ошибка. Переданный токен некорректен.');
+          setIsLoggedIn(false);
+          localStorage.setItem('moviesList', JSON.stringify([]))
+          localStorage.setItem('savedMovies', JSON.stringify([]));
+          localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+          localStorage.setItem('/saved-movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}));
+          navigate('/')
           setMoviesList([]);
           setIsShortMovie(false);
           setSearchKeywordsSavedMovies('');
           setSearchKeywordsAllMovies('');
-          openPopup('При авторизации произошла ошибка. Переданный токен некорректен.');
 
-        } else if (err.status === 500) {
-          saveMovie(convertMovie(movie));
+        } else {
+          console.log(err);
         }
-        console.log(err);
       })
   }
 
@@ -317,7 +320,22 @@ function App() {
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch(err => {
-        console.log(err);
+        if (err.status === 401) {
+          openPopup('При авторизации произошла ошибка. Переданный токен некорректен.');
+          setIsLoggedIn(false);
+          localStorage.setItem('moviesList', JSON.stringify([]))
+          localStorage.setItem('savedMovies', JSON.stringify([]));
+          localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+          localStorage.setItem('/saved-movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}));
+          navigate('/')
+          setMoviesList([]);
+          setIsShortMovie(false);
+          setSearchKeywordsSavedMovies('');
+          setSearchKeywordsAllMovies('');
+
+        } else {
+          console.log(err);
+        }
       });
   }
 
