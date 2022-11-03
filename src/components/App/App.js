@@ -1,6 +1,6 @@
 import "../../vendor/normalize.css";
 import "./App.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -34,6 +34,7 @@ function App() {
   const [errorText, setErrorText] = useState('При авторизации произошла ошибка. Токен не передан или передан не в том формате.');
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isInputDisabled, setIsInputDisabled] = useState(false);
+  const location = useLocation();
 
   const navigate = useNavigate();
 
@@ -50,6 +51,7 @@ function App() {
     if (!localStorage.getItem('/saved-movies')) {
       localStorage.setItem('savedMovies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
     }
+    if (makeSure()) {
     auth.authorizate()
       .then(res => {
         if (!res.ok) {
@@ -71,8 +73,19 @@ function App() {
       })
       .catch(err => {
         console.log(err)
-      })
+      })}
     }, []);
+
+    useEffect(() => {
+      if (route === '/' || route === '/movies') {
+        setIsHeaderShown(true);
+        setIsFooterShown(true);
+      }
+    }, [route])
+
+  function makeSure() {
+    return (location === '/' || location === '/signin' || location === '/signup' ||  location === '/movies' || location === '/saved-movies' || location === '/profile');
+  }
 
   function handleFilterClick(route) {
     const data = JSON.parse(localStorage.getItem(route));
@@ -387,7 +400,7 @@ function App() {
                 route="/"
               />
             }
-          ></Route>
+          />
           <Route
             path="/movies"
             element={
@@ -459,6 +472,7 @@ function App() {
             }
           />
           <Route
+          exact={true}
             path="/signin"
             element={
               <Login toggleFooter={toggleFooter} onChangeRoute={handleNavigation} route="/signin" onSubmit={handleLoginSubmit} isInputDisabled={isInputDisabled}/>
