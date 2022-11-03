@@ -4,12 +4,16 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
 
-function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, route, onSubmit, isRequestLoading, ...props }) {
+function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, route, onSubmit, isRequestLoading, toggleFooter, ...props }) {
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     onChangeRoute(route);
   }, [route])
+
+  useEffect(() => {
+    toggleFooter(true);
+  })
 
   useEffect(() => {
     setIsNotFound(moviesList === []);

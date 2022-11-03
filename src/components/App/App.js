@@ -198,9 +198,25 @@ function App() {
     setIsInputDisabled(true);
     auth.login(email, password)
       .then(res => {
-        setIsInputDisabled(false);
-        setIsLoggedIn(true);
-        navigate('/movies');
+        auth.authorizate()
+          .then(res => {
+            if (!res.ok) {
+              navigate('/');
+              return Promise.reject(res);
+            }
+            return res.json();
+          })
+          .then(res => {
+            if (res) {
+              getMovies()
+                .then(savedMovies => {
+                  localStorage.setItem('savedMovies', JSON.stringify(savedMovies.data));
+                  localStorage.setItem('/saved-movies', JSON.stringify({ movies: savedMovies.data, isShortMovie: false, keywords: '' }));
+                  signIn(res.data);
+                  setIsInputDisabled(false);
+                })
+            }
+          })
       })
       .catch(err => {
         setIsInputDisabled(false);
@@ -222,9 +238,10 @@ function App() {
     auth.signout()
       .then(res => {
         setIsLoggedIn(false);
+        localStorage.setItem('moviesList', JSON.stringify([]))
         localStorage.setItem('savedMovies', JSON.stringify([]));
-        localStorage.setItem('/saved-movies', JSON.stringify({}));
-        localStorage.setItem('/movies', JSON.stringify({}))
+        localStorage.setItem('/movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
+        localStorage.setItem('/saved-movies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}));
       })
       .catch(err => {
         console.log(err);
@@ -369,6 +386,7 @@ function App() {
                   handleDislike={handleDislike}
                   isSavedMovies={false}
                   isRequestLoading={isRequestLoading}
+                  toggleFooter={toggleFooter}
                 />
               </ProtectedRoute>
             }
@@ -389,6 +407,7 @@ function App() {
                   handleLike={handleLike}
                   handleDislike={handleDislike}
                   isSavedMovies={true}
+                  toggleFooter={toggleFooter}
                 />
               </ProtectedRoute>
             }
