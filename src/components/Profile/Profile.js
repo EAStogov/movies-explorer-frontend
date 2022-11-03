@@ -1,49 +1,76 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { useFormWithValidation } from "../../utils/useFormWithValidation";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Form from "../Form/Form";
 import "./Profile.css";
 
-function Profile({ onChangeRoute, route, toggleFooter }) {
-  const [name, setName] = useState("Виталий");
-  const [email, setEmail] = useState("pochta@yandex.ru");
+function Profile({ onChangeRoute, route, toggleFooter, onClickLogoutButton, onSubmit, isInputDisabled }) {
+  const currentUser = useContext(CurrentUserContext);
+  const { values, handleChange, errors, isValid, setIsValid } = useFormWithValidation({name: currentUser.name, email: currentUser.email});
 
   useEffect(() => {
     toggleFooter(false);
     onChangeRoute(route);
   }, []);
+  
+  useEffect(() => {
+    if (values.name === currentUser.name && values.email === currentUser.email) {
+      setIsValid(false);
+    }
+  }, [values]);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
+  function handleChangeInput(e) {
+    e.preventDefault();
+    handleChange(e);
   }
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit(values.name, values.email)
   }
 
   return (
     <section className="profile">
       <Form
         isForEdit={true}
-        title="Привет, Виталий!"
+        title={`Привет, ${currentUser.name}!`}
         submitText="Редактировать"
         navLinkButtonText="Выйти из аккаунта"
         route="/"
+        onClickLogoutButton={onClickLogoutButton}
+        isValid={isValid}
+        onSubmit={handleSubmit}
       >
         <div className="form__input-container form__input-container_type_edit">
           <p className="form__input-label form__input-label_type_edit">Имя</p>
           <input
             className="form__input form__input_type_edit"
-            value={name}
-            onChange={handleChangeName}
+            minLength={2}
+            maxLength={30}
+            type="text"
+            name="name"
+            pattern="[a-zA-ZА-Яа-яёЁ\s_-]+$" 
+            required
+            value={values.name}
+            onChange={handleChangeInput}
+            disabled={isInputDisabled}
           />
         </div>
+        <span className={`form__error form__error_type_profile ${errors.email !== '' && 'form__error_active'}`}>{errors.name}</span>
         <div className="form__input-container form__input-container_type_edit">
           <p className="form__input-label form__input-label_type_edit">E-mail</p>
           <input
             className="form__input form__input_type_edit"
-            value={email}
-            onChange={handleChangeEmail}
+            type="email"
+            name="email"
+            pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            required
+            value={values.email}
+            onChange={handleChangeInput}
+            disabled={isInputDisabled}
           />
         </div>
+        <span className={`form__error form__error_type_profile ${errors.email !== '' && 'form__error_active'}`}>{errors.email}</span>
       </Form>
     </section>
   );

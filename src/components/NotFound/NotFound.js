@@ -10,6 +10,8 @@ function NotFound({ toggleHeader, toggleFooter }) {
   }, []);
 
   function handleButtonClick() {
+    toggleHeader(true);
+    toggleFooter(true);
     return navigate(-1);
   }
 

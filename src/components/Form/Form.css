@@ -60,6 +60,10 @@
   display: block;
 }
 
+.form__error_type_profile {
+  text-align: end;
+}
+
 .form__submit {
   margin: 130px 0 16px;
   height: 45px;
@@ -70,6 +74,16 @@
   padding: 0;
   border: none;
   cursor: pointer;
+}
+
+.form__submit_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  cursor: inherit;
+}
+
+.form__submit_disabled:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 470px) {

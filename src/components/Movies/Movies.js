@@ -1,16 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
 
-function Movies({ onChangeRoute, route, ...props }) {
+function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onChangeKeywords, handleFilterClick, route, onSubmit, isRequestLoading, toggleFooter, ...props }) {
+  const [isNotFound, setIsNotFound] = useState(false);
+
   useEffect(() => {
     onChangeRoute(route);
+  }, [route])
+
+  useEffect(() => {
+    toggleFooter(true);
   })
+
+  useEffect(() => {
+    setIsNotFound(searchKeywords !== '' && JSON.stringify(moviesList) === '[]');
+  }, [moviesList])
+
   return(
     <>
-      <SearchForm />
-      <MoviesCardList {...props} />
+      <SearchForm route={route} searchKeywords={searchKeywords} isShortMovie={isShortMovie} onChangeKeywords={onChangeKeywords} handleFilterClick={handleFilterClick} onSubmit={onSubmit} />
+      {isRequestLoading 
+        ? <Preloader />
+        : isNotFound 
+          ? <p className="movies__message-not-found">Ничего не найдено</p>
+          : <MoviesCardList moviesList={moviesList} route={route} {...props} />}
     </>
   );
 }

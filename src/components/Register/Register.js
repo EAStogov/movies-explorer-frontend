@@ -1,27 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import Form from "../Form/Form";
 import "./Register.css";
 
-function Register({ toggleFooter, onChangeRoute, route }) {
-  const [name, setName] = useState("Виталий");
-  const [email, setEmail] = useState("pochta@yandex.ru");
-  const [password, setPassword] = useState("123456789");
+function Register({ toggleFooter, onChangeRoute, route, onSubmit, isInputDisabled }) {
+  const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
   useEffect(() => {
     toggleFooter(false);
     onChangeRoute(route);
   }, []);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
+  function handleSubmitButton(evt) {
+    evt.preventDefault();
+    onSubmit(values.name, values.email, values.password);
   }
 
   return (
@@ -32,25 +24,50 @@ function Register({ toggleFooter, onChangeRoute, route }) {
         navLinkText="Уже зарегистрированы?"
         navLinkButtonText="Войти"
         route="/signin"
+        onSubmit={handleSubmitButton}
+        isValid={isValid}
       >
         <div className="form__input-container">
           <p className="form__input-label">Имя</p>
-          <input className="form__input" value={name} onChange={handleChangeName} />
+          <input 
+            className={`form__input ${errors.name !== '' && "form__input_invalid"}`}
+            minLength={2}
+            maxLength={30}
+            type="text"
+            name="name"
+            pattern="[a-zA-ZА-Яа-яёЁ\s_-]+$" 
+            required
+            onChange={handleChange} 
+            disabled={isInputDisabled}
+          />
         </div>
+        <span className={`form__error ${errors.name !== '' && 'form__error_active'}`}>{errors.name}</span>
         <div className="form__input-container">
           <p className="form__input-label">E-mail</p>
-          <input className="form__input" value={email} onChange={handleChangeEmail} />
+          <input 
+            className={`form__input ${errors.email !== '' && "form__input_invalid"}`}
+            type="email"
+            name="email"
+            pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            required
+            onChange={handleChange}
+            disabled={isInputDisabled}
+          />
         </div>
+        <span className={`form__error ${errors.email !== '' && 'form__error_active'}`}>{errors.email}</span>
         <div className="form__input-container">
           <p className="form__input-label">Пароль</p>
           <input
-            className="form__input form__input_invalid"
+            className={`form__input ${errors.password !== '' && "form__input_invalid"}`}
             type="password"
-            value={password}
-            onChange={handleChangePassword}
+            minLength={8}
+            name="password"
+            required
+            onChange={handleChange}
+            disabled={isInputDisabled}
           />
         </div>
-        <span className="form__error form__error_active">Что-то пошло не так...</span>
+        <span className={`form__error ${errors.password !== '' && 'form__error_active'}`}>{errors.password}</span>
       </Form>
     </section>
   );
