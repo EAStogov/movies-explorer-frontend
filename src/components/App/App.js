@@ -51,6 +51,7 @@ function App() {
     if (!localStorage.getItem('/saved-movies')) {
       localStorage.setItem('savedMovies', JSON.stringify({movies: [], isShortMovie: false, keywords: ''}))
     }
+    
     if (makeSure()) {
     auth.authorizate()
       .then(res => {
@@ -84,7 +85,7 @@ function App() {
     }, [route])
 
   function makeSure() {
-    return (location === '/' || location === '/signin' || location === '/signup' ||  location === '/movies' || location === '/saved-movies' || location === '/profile');
+    return (location.pathname === '/' || location.pathname === '/signin' || location.pathname === '/signup' ||  location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile');
   }
 
   function handleFilterClick(route) {
