@@ -16,7 +16,7 @@ function Movies({ moviesList, onChangeRoute, searchKeywords, isShortMovie, onCha
   })
 
   useEffect(() => {
-    setIsNotFound(moviesList === []);
+    setIsNotFound(searchKeywords !== '' && JSON.stringify(moviesList) === '[]');
   }, [moviesList])
 
   return(
