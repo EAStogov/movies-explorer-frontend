@@ -4,15 +4,11 @@ function _findAllShortMovies(list) {
   return list.filter((item) => item.duration <= DURATION);
 }
 
-function _findAllLongMovies(list) {
-  return list.filter((item) => item.duration > DURATION);
-}
-
 function _filterByShortMoviesCheckbox(list, isShort) {
   if (isShort) {
     return _findAllShortMovies(list);
   } else {
-    return _findAllLongMovies(list);
+    return list;
   }
 }
 
