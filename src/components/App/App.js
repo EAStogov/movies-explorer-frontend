@@ -190,6 +190,7 @@ function App() {
         } else {
           openPopup('При регистрации пользователя произошла ошибка.')
         }
+        setIsInputDisabled(false);
       })
   }
 
